@@ -47,3 +47,5 @@ yarn add react-query
 Netlify:
 Sites -> Add new site -> Import an existing project ->
 -> Connect to Git provider: GitHub -> Owner:TMS... && Name Repos -> Deploy Site
+
+npm i @emotion/styled @emotion/react
