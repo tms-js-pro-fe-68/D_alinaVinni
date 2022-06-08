@@ -1,0 +1,33 @@
+npm install -g yarn
+
+yarn create vite
+√ Project name: ... diplom_vinni
+√ Select a framework: » react
+√ Select a variant: » react
+
+yarn install
+
+yarn add -D eslint
+
+yarn create @eslint/config
+√ How would you like to use ESLint? · problems    
+√ What type of modules does your project use? · esm
+√ Which framework does your project use? · react
+√ Does your project use TypeScript? · No / Yes
+√ Where does your code run? · browser
+√ What format do you want your config file to be in? · JavaScript  
+√ Would you like to install them now? · No / Yes
+√ Which package manager do you want to use? · yarn
+
+Удалить package-lock.json
+yarn install
+
+Добавить в eslintrc.js в rules:
+  'react/prop-types': 0,
+  'react/react-in-jsx-scope': 0,
+
+yarn add -D prettier
+
+yarn add -D eslint-config-prettier
+
+Добавить в .eslintrc.js, в extends: 'prettier',
