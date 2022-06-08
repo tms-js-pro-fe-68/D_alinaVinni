@@ -10,7 +10,7 @@ yarn install
 yarn add -D eslint
 
 yarn create @eslint/config
-√ How would you like to use ESLint? · problems    
+√ How would you like to use ESLint? · problems  
 √ What type of modules does your project use? · esm
 √ Which framework does your project use? · react
 √ Does your project use TypeScript? · No / Yes
@@ -23,11 +23,27 @@ yarn create @eslint/config
 yarn install
 
 Добавить в eslintrc.js в rules:
-  'react/prop-types': 0,
-  'react/react-in-jsx-scope': 0,
+'react/prop-types': 0,
+'react/react-in-jsx-scope': 0,
 
 yarn add -D prettier
 
 yarn add -D eslint-config-prettier
 
 Добавить в .eslintrc.js, в extends: 'prettier',
+
+yarn add react-router-dom
+
+yarn add @mui/material @mui/styled-engine-sc styled-components
+
+yarn add @mui/icons-material
+
+yarn add formik
+
+npm i yup
+
+yarn add react-query
+
+Netlify:
+Sites -> Add new site -> Import an existing project ->
+-> Connect to Git provider: GitHub -> Owner:TMS... && Name Repos -> Deploy Site
