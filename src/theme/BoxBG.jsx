@@ -1,6 +1,11 @@
+import HomePageContext from '../components/HomePageContext'
+import CirclesLight from './CirclesLight'
 import styled from '@emotion/styled'
-// import { useState } from 'react'
-import CircleLight from './CircleLight'
+
+const bodyWidth = document.documentElement.clientWidth
+// console.log(bodyWidth)
+const bodyHeight= document.documentElement.clientHeight
+// console.log(bodyHeight)
 
 export default function BoxBG(){
     const BackgroundDiv = styled.div`
@@ -11,8 +16,13 @@ export default function BoxBG(){
     `
 
     return(
-        <div style={{background: 'black'}}>
-            <CircleLight {...(200, 0)}/>
-        </div>
+        <HomePageContext>
+            <div className='parent' style={{background: 'black', 
+            width: "100%",
+            marginTop:"0px", 
+            zIndex: "-20"}}>
+                <CirclesLight {...{ bodyWidth, bodyHeight }}/>
+            </div>
+        </HomePageContext>
     )
 }

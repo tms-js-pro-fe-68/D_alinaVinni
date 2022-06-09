@@ -40,3 +40,26 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.filter-blur-light{
+  filter: blur(3.5rem);
+}
+
+.animation_light{
+  animation-name: light;
+  animation-duration: 13s;
+  animation-iteration-count: infinite;
+  animation-delay: 1.4s;
+}
+
+@keyframes light{
+  from{
+    opacity: 0%;
+  }
+  50%{
+      opacity:50%;
+  }
+  to{
+    opacity: 0%;
+  }
+}
