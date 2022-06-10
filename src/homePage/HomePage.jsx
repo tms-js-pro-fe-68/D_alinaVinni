@@ -1,19 +1,15 @@
-import BoxBG from '../theme/BoxBG.jsx'
-import ContentConteiner from '../theme/BoxBG.jsx'
+import HomePageContextProvider from './HomePageContext.jsx'
+import BoxBG from '../theme/BoxBG'
+import CircleTheme from '../theme/CirclesLight'
 
 export default function HomePage(){
     return(
-        <BoxBG>
-            <ContentConteiner>
-            <header style={{
-                width:'100%',
-                height: '30px',
-                marginTop: '0px',
-                background: 'blue',
-            }}>
-                gkfkgflkgfgflgflkggdk
-            </header>
-            </ContentConteiner>
-        </BoxBG>
+        <HomePageContextProvider>
+            <BoxBG  className='BoxBG'>
+                <CircleTheme>
+                    <h1 style={{zIndex: 1}}>jhvgcfrtc</h1>
+                </CircleTheme>
+            </BoxBG>
+        </HomePageContextProvider>
     )
 }

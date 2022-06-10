@@ -62,3 +62,9 @@ button {
     opacity: 0%;
   }
 }
+
+.headingFont{
+  font-family: 'Urbanist';
+  font-style: normal;
+  font-weight: 700;
+}

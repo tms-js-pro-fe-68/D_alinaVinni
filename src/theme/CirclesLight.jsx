@@ -44,7 +44,7 @@ export default function CirclesLight(){
     const CircleTheme = styled.div`
     margin-top: 10px;
     widht: 100%;
-    z-index: -15;
+    z-index: -20;
     `
     let storageCircles = [];
 
