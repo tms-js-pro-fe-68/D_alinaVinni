@@ -42,14 +42,13 @@ button {
 }
 
 .filter-blur-light{
-  filter: blur(3.5rem);
+  filter: blur(25rem);
 }
 
 .animation_light{
   animation-name: light;
-  animation-duration: 13s;
+  animation-duration: 5s;
   animation-iteration-count: infinite;
-  animation-delay: 1.4s;
 }
 
 @keyframes light{

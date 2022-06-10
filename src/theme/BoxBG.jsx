@@ -1,28 +1,24 @@
-import HomePageContext from '../components/HomePageContext'
+
 import CircleTheme from './CirclesLight'
 import styled from '@emotion/styled'
 
-const bodyWidth = document.documentElement.clientWidth
-// console.log(bodyWidth)
-const bodyHeight= document.documentElement.clientHeight
-// console.log(bodyHeight)
-
 export default function BoxBG(){
-    const BackgroundDiv = styled.div`
-    background-color: #FFFGGHH;
+    const BoxBG = styled.div`
+    background: black;
     width: 100%;
-    height: 1000PX;
-    z-index: -10;
+    margin-top:0px;
+    z-index: -20;
     `
+    const ContentConteiner = styled.div`
+    z-index: 0`
 
     return(
-        <HomePageContext>
-            <div className='parent' style={{background: 'black', 
-            width: "100%",
-            marginTop:"0px", 
-            zIndex: "-20"}}>
-                <CircleTheme {...{ bodyWidth, bodyHeight }}/>
-            </div>
-        </HomePageContext>
+            <BoxBG className='BoxBG'>
+                <CircleTheme>
+                    <ContentConteiner className='ContentConteiner'>
+                        
+                    </ContentConteiner>
+                </CircleTheme>
+            </BoxBG>
     )
 }

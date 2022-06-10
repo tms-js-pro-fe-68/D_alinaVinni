@@ -1,80 +1,92 @@
 import styled from '@emotion/styled'
-import { useState } from 'react';
-import { useHomePageContext } from '../components/HomePageContext.jsx'
+import { useEffect } from 'react';
 
-export default function CirclesLight({ bodyWidth, bodyHeight }){
-    const [currentTimesCallLight, setCurrentTimesCallLight] = useState([])
-    const {isInitialized} = useHomePageContext();
+// не перерисовываются круги стр: 69-72
+// не установился npm install react-gradient
+// на каждые 1000рх высоту ставить по одному кругу => изменить randomTimesCallLights()
+// console.log(`${storageCircles} clear`)
+// console.log(`${storageCircles} new state`) - выкидывает дважды
+// useEffect - срабатывает первый раз
+// постоянное измерение bodyHeight
 
-    let palette = [ 
-        '#FFAA6C', '#FF007E', '#EA72FF', '#FFE198',
-        '#6100FF', '#FF008A', '#FFC83A', '#7F9FFF',
-        '#82FFF9', '#5D85FF', '#D015FF', '#FF3278',
-    ];
+const bodyWidth = document.documentElement.clientWidth;
+const bodyHeight = document.documentElement.clientHeight;
 
-    let currSettLight = {
+let palette = [ 
+    '#FFAA6C', '#FF007E', '#EA72FF', '#FFE198',
+    '#6100FF', '#FF008A', '#FFC83A', '#7F9FFF',
+    '#82FFF9', '#5D85FF', '#D015FF', '#FF3278',
+];
+
+let currSettLight;
+
+function randomSettingsLight(){
+    currSettLight = {
         Color: [],
         Size: [],
         PositionTop: [],
         PositionLeft: [],
         indexLayer: [],
-    }
+    };
+    currSettLight.Color.push(palette[Math.floor(Math.random() * palette.length)]) 
 
-    function randomSettingsLight(){
-        currSettLight.Color.push(palette[Math.floor(Math.random() * palette.length)]) ;
-        
-        for(let i = 0; i < 2; i++){
-            currSettLight.Size.push(Math.floor(Math.random() * ((bodyWidth/2,5) - 400 +1)) + 400)
-        }
+    currSettLight.Size.push(Math.floor(Math.random() * (1200 - 700 +1)) + 700)
 
-        currSettLight.PositionTop.push(Math.floor(Math.random() * ((bodyHeight/2) - 220 +1)) + 220)
+    currSettLight.PositionTop.push(Math.floor(Math.random() * ((bodyHeight/2) - 220 +1)) + 220)
 
-        currSettLight.PositionLeft.push(Math.floor(Math.random() * (bodyWidth - 0 +1)) + 0)
-        
-        currSettLight.indexLayer.push(Math.floor(Math.random() * (10 - 5 +1)) + 5)
-    }
-    randomSettingsLight() //default first time call
-    console.log(currSettLight)
+    currSettLight.PositionLeft.push(Math.floor(Math.random() * (bodyWidth - 0 +1)) + 0)
+    
+    currSettLight.indexLayer.push(Math.floor(Math.random() * (10 - 5 +1)) + 5)
+}
+
+export default function CirclesLight(){
 
     const CircleTheme = styled.div`
-    margin-top: 0px;
+    margin-top: 10px;
+    widht: 100%;
     z-index: -15;
     `
+    let storageCircles = [];
 
+    function randomTimesCallLights(){
+        let timesCallLight = Math.floor(Math.random() * ((bodyHeight/50) - (bodyHeight/200))) + (bodyHeight/200);
+
+        for(let i=0; i<timesCallLight; i++){
+            randomSettingsLight()
+
+            let CircleLight = 
+            {backgroundColor: `${currSettLight.Color}`,
+            borderRadius: `50%`,
+            width: `${currSettLight.Size}px`,
+            height: `${currSettLight.Size}px`,
+            paddingTop: `200px`,
+            marginLeft: `${currSettLight.PositionLeft}px`,
+            zIndex: `-${currSettLight.indexLayer}`,
+            opacity: '70%'}
+
+            storageCircles.push(CircleLight)
+        }
+        // console.log(storageCircles)
+    }
+    randomTimesCallLights() //default call
+
+    // setInterval(() => {
+    //     storageCircles.length = 0;
+    //     console.log(`${storageCircles} clear`)
+    // }, 10000) //repeating call
+
+    // useEffect(() => {
+    //     randomTimesCallLights()
+    //     console.log(`${storageCircles} new state`)
+    // }, [storageCircles])
+   
     return(
-        <CircleTheme className='filter-blur-light animation_light'>
+        <CircleTheme className='CircleTheme'>
+            {storageCircles.map((el, index) => {
+                return(
+                    <div className='filter-blur-light animation_light' key={index} style={el}></div> //вынести в кач-ве функции
+                )
+            })}
         </CircleTheme>
     )
 }
-
-
-    // ${currentPositionTop}
-    // const CircleLight = styled.div`
-    // background: ${currentColor.join(',')};
-    // border-radius: 50%;
-    // width: ${currentSize[0]}px;
-    // height: ${currentSize[1]}px;
-    // margin-top: 0px;
-    // margin-left: ${currentPositionLeft}px;
-    // z-index: -${indexLayer};
-    // `
-    // function styleEveryCircle(){
-    //     return (CircleLight)
-    // }
-
-    // function randomTimesCallLights(){
-    //     const timesCalling = 3;
-    //     // Math.floor(Math.random() * (5 - 0)) + 0;
-    //     for(let i=0; i<timesCalling; i++){
-    //         setCurrentTimesCallLight(styleEveryCircle())
-    //     }
-    //     return currentTimesCallLight
-    // }
-
-    // const [currentState, setCurrentState] = useState(randomTimesCallLights()) //default first time call
-
-    // setInterval(() => setCurrentState(randomTimesCallLights()), 15000) //overwriting - next times calls
-
-    // console.log(currentState)
-
- // <CircleLight className='filter-blur-light animation_light' />
