@@ -1,5 +1,5 @@
 import HomePageContext from '../components/HomePageContext'
-import CirclesLight from './CirclesLight'
+import CircleTheme from './CirclesLight'
 import styled from '@emotion/styled'
 
 const bodyWidth = document.documentElement.clientWidth
@@ -21,7 +21,7 @@ export default function BoxBG(){
             width: "100%",
             marginTop:"0px", 
             zIndex: "-20"}}>
-                <CirclesLight {...{ bodyWidth, bodyHeight }}/>
+                <CircleTheme {...{ bodyWidth, bodyHeight }}/>
             </div>
         </HomePageContext>
     )
