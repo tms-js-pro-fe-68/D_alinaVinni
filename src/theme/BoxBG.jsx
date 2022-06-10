@@ -7,6 +7,8 @@ export default function BoxBG(){
                 width: '100%',
                 marginTop: '0px',
                 zIndex: '-20',
-            }}> </div>
+                position: 'absolute',
+            }}> 
+            </div>
     )
 }

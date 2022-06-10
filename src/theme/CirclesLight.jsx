@@ -45,6 +45,7 @@ export default function CirclesLight(){
     margin-top: 10px;
     widht: 100%;
     z-index: -20;
+    position: relative;
     `
     let storageCircles = [];
 
@@ -62,7 +63,8 @@ export default function CirclesLight(){
             paddingTop: `200px`,
             marginLeft: `${currSettLight.PositionLeft}px`,
             zIndex: `-${currSettLight.indexLayer}`,
-            opacity: '70%'}
+            opacity: '70%',
+            position: 'relative',}
 
             storageCircles.push(CircleLight)
         }

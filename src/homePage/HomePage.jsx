@@ -7,7 +7,7 @@ export default function HomePage(){
         <HomePageContextProvider>
             <BoxBG  className='BoxBG'>
                 <CircleTheme>
-                    <h1 style={{zIndex: 1}}>jhvgcfrtc</h1>
+                    <h1 style={{zIndex: 'auto'}}>jhvgcfrtc</h1>
                 </CircleTheme>
             </BoxBG>
         </HomePageContextProvider>
