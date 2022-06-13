@@ -40,3 +40,36 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.filter-blur-light{
+  filter: blur(25rem);
+}
+
+.animation_light{
+  animation-name: light;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes light{
+  from{
+    opacity: 0%;
+  }
+  50%{
+      opacity:100%;
+  }
+  to{
+    opacity: 0%;
+  }
+}
+
+.headingFont{
+  font-family: 'Urbanist';
+  font-style: normal;
+  font-weight: 700;
+}
+
+.constantWidht{
+  max-width: 1920px;
+  min-width: 400px;
+}

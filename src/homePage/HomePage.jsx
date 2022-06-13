@@ -1,7 +1,15 @@
-import { Box } from '@mui/material'
+import HomePageContextProvider from './HomePageContext.jsx'
+import BoxBG from '../theme/BoxBG'
+import CircleTheme from '../theme/CirclesLight'
+import SearchPanel from '../components/SearchPanel'
 
 export default function HomePage(){
     return(
-        <Box></Box>
+        <HomePageContextProvider>
+            <BoxBG  className='BoxBG'>
+                <SearchPanel></SearchPanel>
+                <CircleTheme/>
+            </BoxBG>
+        </HomePageContextProvider>
     )
 }
