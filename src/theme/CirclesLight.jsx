@@ -30,7 +30,7 @@ function randomSettingsLight(){
     };
     currSettLight.Color.push(palette[Math.floor(Math.random() * palette.length)]) 
 
-    currSettLight.Size.push(Math.floor(Math.random() * (900 - 500 +1)) + 500)
+    currSettLight.Size.push(Math.floor(Math.random() * (800 - 300 +1)) + 300)
 
     currSettLight.PositionTop.push(Math.floor(Math.random() * ((bodyHeight/2) - 220 +1)) + 220)
 
@@ -46,6 +46,7 @@ export default function CirclesLight(){
     margin-top: 0px;
     min-whidth: inherit;
     max-whidth: inherit;
+
     z-index: -19;
     position: relative;
     `
@@ -70,28 +71,16 @@ export default function CirclesLight(){
 
             storageCircles.push(CircleLight)
         }
-        // console.log(storageCircles)
     }
-    randomTimesCallLights() //default call
+    randomTimesCallLights()
 
     return(
         <CircleTheme className='CircleTheme'>
             {storageCircles.map((el, index) => {
                 return(
-                    <div className='filter-blur-light animation_light' key={index} style={el}></div> //вынести в кач-ве функции
+                    <div className='filter-blur-light animation_light' key={index} style={el}></div>
                 )
             })}
         </CircleTheme>
     )
 }
-
-    // setInterval(() => {
-    //     storageCircles.length = 0;
-    //     console.log(`${storageCircles} clear`)
-    // }, 10000) //repeating call
-
-    // useEffect(() => {
-    //     randomTimesCallLights()
-    //     console.log(`${storageCircles} new state`)
-    // }, [storageCircles])
-   
