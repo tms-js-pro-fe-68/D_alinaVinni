@@ -70,7 +70,8 @@ export default function LoginPage(){
                     background: 'white',
                     flexDirection: 'column'}}>
 
-                        <Typography variant='h3' sx={{textAlign: 'center', ml:'5%'}}>Please sign in</Typography>
+                        <Typography variant='h3' className='headingFont'
+                        sx={{textAlign: 'center', m:'5%', pt:'10px'}}>Please sign in</Typography>
 
                         <TextField
                         label='Email Address'
@@ -115,7 +116,10 @@ export default function LoginPage(){
                             height:'60px',
                             background: 'linear-gradient(207.67deg, #FDAE8F 3.43%, #FD1C68 104.7%)',
                         }}>
-                            <Typography sx={{color:'white'}}>Sign in</Typography>
+                            <Typography 
+                            className='headingFont'
+                            sx={{color:'white', }}
+                            style={{lineHeight: '24px', fontSize: '18px'}}>Sign in</Typography>
                             </Button>
                     </Box>
                     </Grid>
