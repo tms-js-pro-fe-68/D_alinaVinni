@@ -117,10 +117,10 @@ export default function LoginPage(){
                             background: 'linear-gradient(207.67deg, #FDAE8F 3.43%, #FD1C68 104.7%)',
                         }}>
                             <Typography 
-                            className='headingFont'
-                            sx={{color:'white', }}
-                            style={{lineHeight: '24px', fontSize: '18px'}}>Sign in</Typography>
-                            </Button>
+                            className='headingFont textButton'>
+                                Sign in
+                            </Typography>
+                        </Button>
                     </Box>
                     </Grid>
                 </Grid>
