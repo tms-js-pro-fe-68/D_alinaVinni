@@ -61,7 +61,7 @@ export default function AppBarHeader(){
                 onClick={() => handleClickOpen()}>
 
                 <Box sx={{
-                background: `url('./public/Logo.png')`,
+                background: `url('./Logo.png')`,
                 height: '54px',
                 width: '47px',
                 justifyContent: 'center',
