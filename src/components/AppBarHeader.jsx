@@ -10,8 +10,7 @@ import {
   DialogContent,
   List,
   ListItem,
-  ListItemButton,
-  DialogActions} from "@mui/material";
+  ListItemButton,} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
@@ -45,6 +44,7 @@ export default function AppBarHeader(){
   let ListMenu = [ 'Home', 'Explore', 'Pages', 'Contact us']
 
     return(
+      
       <Container maxWidth='xl'>
         <Grid container sx={{justifyContent:'center'}}>
           <Grid item xs={12} >
@@ -84,21 +84,21 @@ export default function AppBarHeader(){
                   <DialogTitle>
                     
                     <Typography 
-                    className='headingFont'
                     sx={{
+                      fontStyle: 'normal',
+                      fontWeight: 700,
                       fontSize: '32px',
                       lineHeight: '48px',
                       textAlign: 'center',
                       width: "100%",}}>
                         Ultra NFT
                     </Typography>
-                  </DialogTitle>
 
-                  {/* <DialogActions>     //console: to much re-renders
-                    <Button onClick={handleClose()} >
+                    {/* <Button onClick={handleClose()} >
                       <DoNotDisturbOnOutlinedIcon sx={{color: 'black', mr:2}}/>
-                    </Button>
-                  </DialogActions> */}
+                    </Button> */}
+
+                  </DialogTitle>
 
                 <DialogContent>
 
@@ -114,7 +114,6 @@ export default function AppBarHeader(){
                             <Box sx={{display: 'flex', width: '100%'}}>
                               <SearchIcon disabled sx={{color: 'white', ml: '13px', mt:2}}/>
                               <TextField
-                              className='styledPlaceholder headingFont'
                               id='search'
                               placeholder='Search...' 
                               sx={{
@@ -136,7 +135,6 @@ export default function AppBarHeader(){
                             <Typography 
                             key={i} 
                             id={el}
-                            className='headingFont'
                             sx={{
                             marginTop: '12px',
                             ml: 11,
@@ -159,7 +157,6 @@ export default function AppBarHeader(){
               
               <Grid item lg={2}>
               <Typography 
-              className='headingFont'
               sx={{
                 display: { xs: 'none', lg: 'block'},
                 fontSize: '32px',
@@ -182,7 +179,6 @@ export default function AppBarHeader(){
                 <Box sx={{display: 'flex', width: '100%'}}>
                   <SearchIcon disabled sx={{color: 'white', ml: '13px', mt:2}}/>
                   <TextField
-                  className='styledPlaceholder headingFont'
                   id='search'
                   placeholder='Search...' 
                   sx={{
@@ -210,7 +206,7 @@ export default function AppBarHeader(){
                   color: '#FD1C68',
                   ml: 6,}}
                   onClick={() => navigationList()}>
-                  <Typography className='headingFont textButton'>
+                  <Typography>
                     Navigation
                   </Typography>
                 </Button>
@@ -220,7 +216,6 @@ export default function AppBarHeader(){
                   <Typography 
                   key={i} 
                   id={el}
-                  className='headingFont'
                   sx={{
                   marginTop: '12px',
                   ml: 11,
@@ -250,7 +245,6 @@ export default function AppBarHeader(){
                   <Box sx={{display:'flex', width: '100%', justifyContent:'center'}}>
                 <AssignmentIndOutlinedIcon sx={{color: 'white',}}/>
                 <Typography
-                className='headingFont textButton'
                 sx={{ml: 1}}>
                   {logInOrLogOut()}
                 </Typography>
