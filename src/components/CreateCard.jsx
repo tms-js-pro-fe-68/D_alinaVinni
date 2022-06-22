@@ -2,13 +2,14 @@ import { Dialog, DialogContent, DialogTitle, Box, Container, Button, Typography,
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 import AddIcon from '@mui/icons-material/Add';
-
-import { useState } from 'react'
+import FormikTextField from "./FormikTextField";
+import { useFormik } from "formik"
+import { useState, useEffect } from 'react'
+import { object, string, number } from 'yup'
 
 
 export default function CreateCard(){
-    const [image, setImage] = useState('')
-    
+
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
     setOpen(true);
@@ -19,16 +20,51 @@ export default function CreateCard(){
             setOpen(false);
         } 
     };
+    
+    const [image, setImage] = useState(null)
 
-    function showFile(){
-        if(image !== ''){
-            return(
-                <Box sx={{width: '400px',
-                height: '400px',
-                background: `${image}`}}></Box>
-            )
-        }
+    const baseURL = 'https://tms-js-pro-back-end.herokuapp.com/api'
+
+    const handleSubmit = async( values, {setSubmitting}) => {
+        const { data } = await fetch(`${baseURL}/nfts`, values)
+
+        const resourse = '/nft'
+        const formData = new FormData()
+        formData.append( 'image', image )
+        
+        // const { data: imageURL } = await fetch(`${baseURL}`, {//wtf
+        //     method: 'POST',
+        //     body: formData,
+        //     { params: {resourse, id:data.id} }})
     }
+
+    const formik = useFormik({
+        initialValues:{
+            name: '',
+            description: '',
+            price: '',
+        },
+        onsubmit: handleSubmit,
+        validationSchema: object().shape({
+            name: string().required(),
+            description: string(),
+            price: number().min(1),
+        }),
+        validateOnMount: true,
+    })
+
+    const [imagePreview, setImagePreview] = useState('')
+    useEffect(() => {
+        const reader = new FileReader()
+        reader.onload() = e => setImagePreview(e.target.result)
+
+        if(image){
+            reader.readAsDataURL(image)
+        }
+
+        return() => {reader.onload() = undefined}
+    }, [image])
+
     return(
         <Container maxWidth='xl' >
             <Button sx={{
@@ -81,36 +117,30 @@ export default function CreateCard(){
                     </DialogTitle>
 
                     <DialogContent>
-                        <Box sx={{display: 'flex', width: '100%'}}>
+                        <form onSubmit={formik.handleSubmit}>
+                        <Box  sx={{display: 'flex', width: '100%'}}>
                             <Box sx={{
                                 width: '500px', 
                                 height: '500px',
+                                background: '#424242',
+                                border: '2px dashed white',
+                                borderRadius: '14px'
                             }}>
                                 <TextField
                                 type='file'
+                                name='image'
                                 sx={{width: '500px',
-                                height:'500px',
+                                height:'100px',
                                 background: '#424242',
                                 border: '2px dashed white',
                                 borderRadius: '14px'}}
-                                value={image}
-                                onChange={(e) => {
-                                    setImage(e.target.value)
-                                console.log(image)}}
-                                // placeholder={
-                                //     <Box sx={{display: 'flex', width: '100%', height:'100%'}}>
-                                //         <FilePresentIcon sx={{color: 'white', fontSize: '25px'}}/>
-                                //         <Typography
-                                //         classes={{root: 'secondFont'}}
-                                //         sx={{color:'white', 
-                                //         width: '100%', 
-                                //         textAlign:'center',
-                                //         fontSize: '16px',
-                                //         color: 'white'}}>Select or drag a file</Typography>
-                                //     </Box>
-                                // }
-                                />
-                                {}
+                                onChange={e => setImage(e.target.files[0]) }
+                                placeholder='Select or drag a file'/>
+                                <Box
+                                src={imagePreview}
+                                sx={{width: '400px',
+                                heigth: '400px',
+                                justifyContent: 'center'}}/>
                             </Box>
 
                             <Box sx={{ width: '300px', ml:4, height: '500px'}}>
@@ -122,9 +152,24 @@ export default function CreateCard(){
                                 lineHeight: '35px',
                                 height: '56px',}}>Default Email</Typography>
 
-                                <TextField 
-                                id='dash'
+                                <FormikTextField 
+                                id='price'
+                                name='price'
+                                formik={formik}
                                 placeholder='Set a price' 
+                                inputProps={{color:'white',}}
+                                sx={{width: '100%',
+                                mt: 4,
+                                height: '56px',
+                                border: '2px dashed white',
+                                borderRadius: '14px', 
+                                background: '#424242'}}/>
+
+                                <FormikTextField 
+                                id='description'
+                                name='description'
+                                formik={formik}
+                                placeholder='Write a description' 
                                 inputProps={{color:'white'}}
                                 sx={{width: '100%',
                                 mt: 4,
@@ -138,11 +183,11 @@ export default function CreateCard(){
                                 color: 'white',
                                 borderRadius: '12px',
                                 width: '100%',
-                                mt: 38,
+                                mt: 26,
                                 height: '56px',}}
                                 >
                                     <Box sx={{display: 'flex'}}
-                                    onClick={() => {setOpen(false)}}>
+                                    type='submit'>
                                     <AddIcon sx={{color: 'white', fontSize: '25px',}}/>
                                     <Typography
                                     classes={{root: 'secondFont'}}
@@ -156,6 +201,7 @@ export default function CreateCard(){
                                 </Button>
                             </Box>
                         </Box>
+                        </form>
                     </DialogContent>
             </Dialog>
         </Container>
