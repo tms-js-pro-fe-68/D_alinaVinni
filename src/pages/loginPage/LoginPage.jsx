@@ -71,7 +71,7 @@ export default function LoginPage(){
                     flexDirection: 'column'}}>
 
                         <Typography variant='h3' className='headingFont'
-                        sx={{textAlign: 'center', m:'5%', pt:'10px'}}>Please sign in</Typography>
+                        sx={{textAlign: 'center', m:'5%', pt:'10px', color: 'black'}}>Please sign in</Typography>
 
                         <TextField
                         label='Email Address'

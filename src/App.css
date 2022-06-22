@@ -63,24 +63,4 @@ button {
   }
 }
 
-.headingFont{
-  font-family: 'Urbanist' !important; 
-  font-style: normal;
-  font-weight: 700;
-}
 
-.textButton{
-  color: white;
-  font-size: 16px;
-  line-height: 24px;
-  justify-content: center;
-}
-
-.constantWidht{
-  max-width: 1920px;
-  min-width: 400px;
-}
-
-.styledPlaceholder::placeholder{
-  margin-left: -10px;
-}
