@@ -7,7 +7,7 @@ import CardShow from '../../components/CardShow.jsx'
 import { Container } from '@mui/material'
 import CreateCard from '../../components/CreateCard.jsx'
 export default function HomePage(){
-    let navigate = useNavigate()
+    // let navigate = useNavigate()
 
     return(
         <HomePageContextProvider>

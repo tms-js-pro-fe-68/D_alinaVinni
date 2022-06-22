@@ -9,26 +9,26 @@ import { useState } from 'react'
 export default function CreateCard(){
     const [image, setImage] = useState('')
     
-const [open, setOpen] = useState(false);
-const handleClickOpen = () => {
-  setOpen(true);
-};
-const handleClose = () => {
-   const warning = confirm(`If you close the creation card, you will lose your progress. \nAre you sure you want to close the creation card?`)
-    if(warning == true){
-        setOpen(false);
-    } 
-};
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+    setOpen(true);
+    };
+    const handleClose = () => {
+    const warning = confirm(`If you close the creation card, you will lose your progress. \nAre you sure you want to close the creation card?`)
+        if(warning == true){
+            setOpen(false);
+        } 
+    };
 
-function showFile(){
-    if(image !== ''){
-        return(
-            <Box sx={{width: '400px',
-            height: '400px',
-            background: `${image}`}}></Box>
-        )
+    function showFile(){
+        if(image !== ''){
+            return(
+                <Box sx={{width: '400px',
+                height: '400px',
+                background: `${image}`}}></Box>
+            )
+        }
     }
-}
     return(
         <Container maxWidth='xl' >
             <Button sx={{
