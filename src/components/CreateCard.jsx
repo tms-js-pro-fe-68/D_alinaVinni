@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle, Box, Container, Button, Typography, TextField, } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Box, Button, Typography, TextField, } from "@mui/material";
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 import AddIcon from '@mui/icons-material/Add';
@@ -6,36 +6,51 @@ import FormikTextField from "./FormikTextField";
 import { useFormik } from "formik"
 import { useState, useEffect } from 'react'
 import { object, string, number } from 'yup'
+import axiosAPI from "../axiosAPI";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 
 export default function CreateCard(){
 
     const [open, setOpen] = useState(false);
+
+    let data = sessionStorage.getItem('value')
+    const navigate = useNavigate()
+
     const handleClickOpen = () => {
-    setOpen(true);
+        if(data == null){
+            navigate('../login', { replace: true })
+        }else if(data !== null){
+            setOpen(true);
+        }
     };
+
     const handleClose = () => {
     const warning = confirm(`If you close the creation card, you will lose your progress. \nAre you sure you want to close the creation card?`)
         if(warning == true){
             setOpen(false);
         } 
     };
-    
+
     const [image, setImage] = useState(null)
 
-    const baseURL = 'https://tms-js-pro-back-end.herokuapp.com/api'
-
     const handleSubmit = async( values, {setSubmitting}) => {
-        const { data } = await fetch(`${baseURL}/nfts`, values)
+        const { data } = await axiosAPI.post('/nfts', values)
 
         const resourse = '/nft'
         const formData = new FormData()
         formData.append( 'image', image )
         
-        // const { data: imageURL } = await fetch(`${baseURL}`, {//wtf
-        //     method: 'POST',
-        //     body: formData,
-        //     { params: {resourse, id:data.id} }})
+        const { data: imageURL } = await axios.post(
+            'https://server.kemalkalandarov.lol/api/images', 
+            formData,
+            { params: {resourse, id:data.id}})
+        
+        await axiosAPI.put(`/nfts/${data.id}`, {imageURL})
+
+        setSubmitting(false)
+        setOpen(false)
     }
 
     const formik = useFormik({
@@ -47,26 +62,28 @@ export default function CreateCard(){
         onsubmit: handleSubmit,
         validationSchema: object().shape({
             name: string().required(),
-            description: string(),
+            // description: string(),
             price: number().min(1),
         }),
         validateOnMount: true,
     })
 
     const [imagePreview, setImagePreview] = useState('')
-    useEffect(() => {
-        const reader = new FileReader()
-        reader.onload() = e => setImagePreview(e.target.result)
 
-        if(image){
-            reader.readAsDataURL(image)
-        }
+    // useEffect(() => {
+    //     const reader = new FileReader()
+    //     reader.onload() = e => setImagePreview(e.target.result)
 
-        return() => {reader.onload() = undefined}
-    }, [image])
+    //     if(!!image){
+    //         reader.readAsDataURL(image)
+    //     }
+
+    //     return() => {reader.onload() = undefined}
+    // }, [image])
+
 
     return(
-        <Container maxWidth='xl' >
+        <>
             <Button sx={{
             heigth: '72px', 
             color: 'white',
@@ -179,6 +196,7 @@ export default function CreateCard(){
                                 background: '#424242'}}/>
 
                                 <Button
+                                disabled={!formik.isValid && !formik.isSubmiting}
                                 sx={{background: "linear-gradient(207.67deg, #FDAE8F 3.43%, #FD1C68 104.7%)",
                                 color: 'white',
                                 borderRadius: '12px',
@@ -204,6 +222,6 @@ export default function CreateCard(){
                         </form>
                     </DialogContent>
             </Dialog>
-        </Container>
+        </>
     )
 }

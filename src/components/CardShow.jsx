@@ -1,24 +1,19 @@
-import { Avatar, Card, Button, CardHeader, CardMedia, IconButton, Typography, Container, Box, createTheme } from "@mui/material";
+import { Avatar, Card, Button, CardHeader, CardMedia, IconButton, Typography, Box, Tooltip, Dialog } from "@mui/material";
 import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import TokenOutlinedIcon from '@mui/icons-material/TokenOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react'
+import DialogDeleteOrEdit from "./DialogDeleteOrEdir";
 
-export default function CardShow(){
+export default function CardShow(props){
     const [colorLike, setColorLike] = useState('white')
 
     function likeButton() {
         return( colorLike == 'white' ? setColorLike('red') : setColorLike('white') )
     }
-
-    // const theme = createTheme({
-    //     palette:{
-    //         main: '#eeeeee',
-    //       },
-    //     }
-    // )
 
     const defaultInfo = {
         email: 'Default User',
@@ -28,8 +23,12 @@ export default function CardShow(){
         price: 1.5,
     }
 
+    function editOrDelete(){
+        return( <DialogDeleteOrEdit props={defaultInfo}/> )
+    }
+
     return(
-        <Container maxWidth='xl'>  {/*remove*/}
+        <>  
         <Card
         sx={{
             width:'370px',
@@ -49,35 +48,45 @@ export default function CardShow(){
             m:3,
             borderRadius: '24px'}}/>
 
-            <CardHeader
-            sx={{mt:'-15px'}}
-            avatar={
-                <Avatar sx={{background: '#F2B4B0',
-                width: '56px',
-                height: '56px'}}>
-                    <FaceOutlinedIcon 
-                    sx={{color: 'black', 
-                    width: '100%',
-                    height: '90%'}}/>
-                </Avatar>}
-            title={
-                <Typography 
-                classes={{root: 'headingFont'}}
-                sx={{color:'white', 
-                fontSize: '24px',
-                ml:'-5px',
-                }}>
-                    {`${defaultInfo.email}`}
-                </Typography>}
-                subheader={<Typography 
-                classes={{root: 'secondFont'}}
-                sx={{color:'white', 
-                fontSize: '20px',
-                ml:'-5px',
-                }}>
-                   Time...
-                </Typography>}>
-            </CardHeader>
+            <Box sx={{display: 'flex', mt:'-15px',}}>
+                <CardHeader
+                sx={{ width:'85%'}}
+                avatar={
+                    <Avatar sx={{background: '#F2B4B0',
+                    width: '56px',
+                    height: '56px'}}>
+                        <FaceOutlinedIcon 
+                        sx={{color: 'black', 
+                        width: '100%',
+                        height: '90%'}}/>
+                    </Avatar>}
+                title={
+                    <Typography 
+                    classes={{root: 'headingFont'}}
+                    sx={{color:'white', 
+                    fontSize: '24px',
+                    ml:'-5px',
+                    }}>
+                        {`${defaultInfo.email}`}
+                    </Typography>}
+                    subheader={<Typography 
+                    classes={{root: 'secondFont'}}
+                    sx={{color:'white', 
+                    fontSize: '20px',
+                    ml:'-5px',
+                    }}>
+                    Time...
+                    </Typography>}>
+                </CardHeader>
+
+                <Tooltip title='Manage' sx={{width: '20%'}}>
+                    <IconButton sx={{width:'15%'}} onClick={() => {
+                        console.log(22)
+                        editOrDelete()}}>
+                        <MoreVertIcon sx={{color:'white', width:'100%', height: '100%'}}/>
+                    </IconButton>
+                </Tooltip>
+            </Box>
 
             <Box sx={{display: 'flex', justifyItems: 'center'}}>
                 <Box sx={{width: '50%'}}>
@@ -161,6 +170,6 @@ export default function CardShow(){
                 </Box>
             </Box>
         </Card>
-        </Container>
+        </>
     )
 }

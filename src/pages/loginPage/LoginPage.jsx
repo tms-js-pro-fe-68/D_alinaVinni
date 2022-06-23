@@ -9,6 +9,7 @@ import { Box,
     Button, 
     Container,
     Grid   } from '@mui/material'
+import axiosAPI from "../../axiosAPI"
 
 const schemaSignIn = object().shape({
     email: string().email().required(),
@@ -21,22 +22,13 @@ export default function LoginPage(){
     const handleSubmit = async (values, { setSubmiting }) => {
         const {email, password} = values;
 
-        const response = await fetch('https://tms-js-pro-back-end.herokuapp.com/api/users/signin', {
-            method:'POST',
-            headers: {
-                Accept: 'application/json',
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password
-            }),
-        })
+        const { data } = await axiosAPI.post(`/users/signin`, { email, password })
 
-        const data = await response.json()
-        
         sessionStorage.token = data.token;
         sessionStorage.email = data.email;
+
+        axiosAPI.setup(data.token)
+
         navigate('/', {replace: true});
 
         setSubmiting(false)
@@ -105,7 +97,8 @@ export default function LoginPage(){
                             formik.touched.password && !!formik.errors.password && formik.errors.password
                         }/>
 
-                        <Button type='submit' 
+                        <Button 
+                        type='submit' 
                         disabled={!formik.isValid && !formik.isSubmiting}
                         sx={{
                             width: '90%', 
