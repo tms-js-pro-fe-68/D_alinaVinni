@@ -1,34 +1,19 @@
 import { Button, Typography, Box } from "@mui/material"
 import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
 import { useNavigate } from "react-router-dom"
-import { useState } from "react";
-import { useEffect } from "react";
 
 export default function ButtonLogInOut(){
-  const [dataLogIn, setDataLogIn] = useState(sessionStorage.getItem('value'))
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   setDataLogIn(sessionStorage.getItem('value'))
-  // }, [dataLogIn])
-  
-  const logInOrLogOut = () => {
-      if(dataLogIn == null){
-        return('Log In')
-      } else if(dataLogIn !== null){
-        return('Log Out')
-      }
-    }
-
-  const letNavigate = () => {
-    return(
-      dataLogIn == null ? navigate('../login', {replace: true}) : setDataLogIn(sessionStorage.clear())
-    )
+  const handleLogOutIn = () => { 
+    sessionStorage.token = ''
+    sessionStorage.email = ''
+    navigate('../login', { replace: true })
   }
 
   return(
       <Button 
-      onClick={() => {letNavigate()}}
+      onClick={() => {handleLogOutIn()}}
         sx={{
           width: '100%',
           height: '56px',
@@ -40,7 +25,7 @@ export default function ButtonLogInOut(){
           <Typography
           classes={{root: 'secondFont'}}
           sx={{ml: 1}}>
-            {logInOrLogOut()}
+            Log In/Out
           </Typography>
             </Box>
         </Button>

@@ -1,5 +1,4 @@
 import BoxBG from "../../theme/BoxBG"
-import CircleTheme from '../../theme/CirclesLight'
 import { object, string } from 'yup'
 import { useNavigate } from "react-router-dom"
 import { useFormik } from 'formik'
@@ -19,7 +18,7 @@ const schemaSignIn = object().shape({
 export default function LoginPage(){
     const navigate = useNavigate();
 
-    const handleSubmit = async (values, { setSubmiting }) => {
+    const handleSubmit = async (values, { setSubmitting }) => {
         const {email, password} = values;
 
         const { data } = await axiosAPI.post(`/users/signin`, { email, password })
@@ -27,11 +26,11 @@ export default function LoginPage(){
         sessionStorage.token = data.token;
         sessionStorage.email = data.email;
 
-        axiosAPI.setup(data.token)
+        // axiosAPI.setup(data.token)
 
         navigate('/', {replace: true});
 
-        setSubmiting(false)
+        setSubmitting(false)
     }
 
     const formik = useFormik({
@@ -50,10 +49,13 @@ export default function LoginPage(){
             height: '100vh',
             width: '100vw',
         }}>
+            <Button 
+            onClick={() => {navigate('/', {replace: true});}}>Return to the HomePage</Button>
              <Container maxWidth='xl' sx={{mt: 6,}}>
                 <Grid container sx={{justifyContent:'center'}}>
                     <Grid item xs={12} md={8}>
-                    <Box component='form'
+                    <form onSubmit={formik.handleSubmit}>
+                    <Box 
                     container
                     item
                     spacing={2}
@@ -115,6 +117,7 @@ export default function LoginPage(){
                             </Typography>
                         </Button>
                     </Box>
+                    </form>
                     </Grid>
                 </Grid>
              </Container>

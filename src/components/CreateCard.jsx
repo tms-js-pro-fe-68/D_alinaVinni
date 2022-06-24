@@ -1,27 +1,33 @@
-import { Dialog, DialogContent, DialogTitle, Box, Button, Typography, TextField, } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Box, Button, Typography, TextField, containerClasses, } from "@mui/material";
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 import AddIcon from '@mui/icons-material/Add';
 import FormikTextField from "./FormikTextField";
 import { useFormik } from "formik"
 import { useState, useEffect } from 'react'
-import { object, string, number } from 'yup'
+import { date, object, string, number } from 'yup'
 import axiosAPI from "../axiosAPI";
 import axios from 'axios'
+import getData from '../getDate'
 import { useNavigate } from "react-router-dom";
 
+const schemeForNFT = object().shape({
+    description: string().min(1).max(50).required(),
+    price: number().min(1).required(),
+})
 
 export default function CreateCard(){
 
     const [open, setOpen] = useState(false);
 
-    let data = sessionStorage.getItem('value')
     const navigate = useNavigate()
 
+    const dataEmail = sessionStorage.email
+
     const handleClickOpen = () => {
-        if(data == null){
+        if(dataEmail == null){
             navigate('../login', { replace: true })
-        }else if(data !== null){
+        }else if(dataEmail !== null){
             setOpen(true);
         }
     };
@@ -34,9 +40,11 @@ export default function CreateCard(){
     };
 
     const [image, setImage] = useState(null)
+ 
+    const data = {}
 
     const handleSubmit = async( values, {setSubmitting}) => {
-        const { data } = await axiosAPI.post('/nfts', values)
+        await axiosAPI.post('/nfts', {...values}) 
 
         const resourse = '/nft'
         const formData = new FormData()
@@ -55,31 +63,30 @@ export default function CreateCard(){
 
     const formik = useFormik({
         initialValues:{
-            name: '',
-            description: '',
-            price: '',
+            user: `${data?.dataEmail}`,
+            description: `${data?.description}`,
+            price: `${data?.price}`,
+            dataCreate: `${data?.getDate}`
         },
         onsubmit: handleSubmit,
-        validationSchema: object().shape({
-            name: string().required(),
-            // description: string(),
-            price: number().min(1),
-        }),
+        validationSchema: schemeForNFT,
         validateOnMount: true,
     })
 
+console.log(data)
+
     const [imagePreview, setImagePreview] = useState('')
 
-    // useEffect(() => {
-    //     const reader = new FileReader()
-    //     reader.onload() = e => setImagePreview(e.target.result)
+    useEffect(() => {
+        const reader = new FileReader()
+        reader.onload = e => setImagePreview(e.target.result)
 
-    //     if(!!image){
-    //         reader.readAsDataURL(image)
-    //     }
+        if(image){
+            reader.readAsDataURL(image)
+        }
 
-    //     return() => {reader.onload() = undefined}
-    // }, [image])
+        return() => {reader.onload = undefined}
+    }, [image])
 
 
     return(
@@ -104,6 +111,7 @@ export default function CreateCard(){
                 </Typography>
                 </Box>
             </Button>
+
        
             <Dialog
             open={open}
@@ -136,6 +144,7 @@ export default function CreateCard(){
                     <DialogContent>
                         <form onSubmit={formik.handleSubmit}>
                         <Box  sx={{display: 'flex', width: '100%'}}>
+
                             <Box sx={{
                                 width: '500px', 
                                 height: '500px',
@@ -144,6 +153,7 @@ export default function CreateCard(){
                                 borderRadius: '14px'
                             }}>
                                 <TextField
+                                id='image'
                                 type='file'
                                 name='image'
                                 sx={{width: '500px',
@@ -155,24 +165,29 @@ export default function CreateCard(){
                                 placeholder='Select or drag a file'/>
                                 <Box
                                 src={imagePreview}
+                                alt='Your nft'
                                 sx={{width: '400px',
                                 heigth: '400px',
                                 justifyContent: 'center'}}/>
                             </Box>
 
+
                             <Box sx={{ width: '300px', ml:4, height: '500px'}}>
                                 <Typography
                                 classes={{root: 'headingFont'}}
+                                id={sessionStorage.email}
+                                name={sessionStorage.email}
                                 sx={{color:'white', 
                                 fontSize: '24px',
                                 width: '100%',
                                 lineHeight: '35px',
-                                height: '56px',}}>Default Email</Typography>
+                                height: '56px',}}>{sessionStorage.email}</Typography>
 
                                 <FormikTextField 
                                 id='price'
                                 name='price'
                                 formik={formik}
+                                value={data?.price}
                                 placeholder='Set a price' 
                                 inputProps={{color:'white',}}
                                 sx={{width: '100%',
@@ -186,6 +201,7 @@ export default function CreateCard(){
                                 id='description'
                                 name='description'
                                 formik={formik}
+                                value={data?.description}
                                 placeholder='Write a description' 
                                 inputProps={{color:'white'}}
                                 sx={{width: '100%',

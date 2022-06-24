@@ -1,16 +1,25 @@
-import HomePageContextProvider from './HomePageContext.jsx'
 import BoxBG from '../../theme/BoxBG'
 import CircleTheme from '../../theme/CirclesLight'
-import { useNavigate } from 'react-router-dom'
 import AppBarHeader from '../../components/AppBarHeader.jsx'
 import CardShow from '../../components/CardShow.jsx'
 import { Container } from '@mui/material'
 import CreateCard from '../../components/CreateCard.jsx'
+import { useContext, createContext } from 'react'
+
+
+const Context = createContext()
+
+export const useHomePageContext = () => useContext(Context)
+
+
 export default function HomePage(){
-    // let navigate = useNavigate()
+
+    const responseHomePage = [22, 'place for fetch, which the get all nfts and hand over them to children throw useHomePageContext', 1, 2, 3]
+
+    // console.log(responseHomePage)
 
     return(
-        <HomePageContextProvider>
+        <Context.Provider value={responseHomePage}>
             <BoxBG  className='BoxBG'>
                 <AppBarHeader/>
                 <Container sx={{mt: '95px', display: 'flex'}}>
@@ -19,6 +28,6 @@ export default function HomePage(){
                 {/* <CircleTheme/> */}
                 </Container>
             </BoxBG>
-        </HomePageContextProvider>
+        </Context.Provider>
     )
 }

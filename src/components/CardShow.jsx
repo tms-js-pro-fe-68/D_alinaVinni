@@ -4,9 +4,9 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import TokenOutlinedIcon from '@mui/icons-material/TokenOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react'
 import DialogDeleteOrEdit from "./DialogDeleteOrEdir";
+import { useHomePageContext } from "../pages/homePage/HomePage";
 
 export default function CardShow(props){
     const [colorLike, setColorLike] = useState('white')
@@ -23,9 +23,7 @@ export default function CardShow(props){
         price: 1.5,
     }
 
-    function editOrDelete(){
-        return( <DialogDeleteOrEdit props={defaultInfo}/> )
-    }
+    // const responseHomePage = useHomePageContext()
 
     return(
         <>  
@@ -78,14 +76,9 @@ export default function CardShow(props){
                     Time...
                     </Typography>}>
                 </CardHeader>
-
-                <Tooltip title='Manage' sx={{width: '20%'}}>
-                    <IconButton sx={{width:'15%'}} onClick={() => {
-                        console.log(22)
-                        editOrDelete()}}>
-                        <MoreVertIcon sx={{color:'white', width:'100%', height: '100%'}}/>
-                    </IconButton>
-                </Tooltip>
+                
+               <DialogDeleteOrEdit/>
+               
             </Box>
 
             <Box sx={{display: 'flex', justifyItems: 'center'}}>
