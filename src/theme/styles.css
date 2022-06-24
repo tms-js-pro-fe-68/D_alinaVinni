@@ -1,0 +1,13 @@
+.headingFont{
+    font-family: 'Urbanist' !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    color: white;
+  }
+
+.secondFont{
+  font-family: 'Urbanist' !important;
+  font-style: normal;
+  font-weight: 400!important;
+  color: white;
+}

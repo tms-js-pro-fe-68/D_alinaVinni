@@ -1,3 +1,15 @@
+форма NFT
+
+POST https://tms-js-pro-back-end.herokuapp.com/api/nfts
+{
+  "name": "test 3",
+  "description": "test 11111",
+  "price": 100,
+  "imageUrl": "test url",
+  "likesCount": 2
+}
+
+
 npm install -g yarn
 
 yarn create vite
@@ -49,3 +61,5 @@ Sites -> Add new site -> Import an existing project ->
 -> Connect to Git provider: GitHub -> Owner:TMS... && Name Repos -> Deploy Site
 
 npm i @emotion/styled @emotion/react
+
+yarn add @fontsource/urbanist

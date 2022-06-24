@@ -63,13 +63,4 @@ button {
   }
 }
 
-.headingFont{
-  font-family: 'Urbanist';
-  font-style: normal;
-  font-weight: 700;
-}
 
-.constantWidht{
-  max-width: 1920px;
-  min-width: 400px;
-}
