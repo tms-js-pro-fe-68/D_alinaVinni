@@ -56,6 +56,7 @@ import ButtonLogInOut from './ButtonLogInOut';
                 open={open}
                 onClose={handleClose}
                 fullWidth
+                scroll='body'
                 PaperProps={{
                   sx:{
                     background:"#1f1f1f",

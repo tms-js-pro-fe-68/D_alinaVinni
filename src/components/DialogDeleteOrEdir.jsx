@@ -34,6 +34,7 @@ export default function DialogDeleteOrEdit(){
             open={open}
             onClose={handleClose}
             maxWidth='800px'
+            scroll='body'
             fullWidth
             PaperProps={{
             sx:{

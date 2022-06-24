@@ -1,11 +1,11 @@
-import { Dialog, DialogContent, DialogTitle, Box, Button, Typography, TextField, containerClasses, } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Box, Button, Typography, TextField, containerClasses, CardMedia, } from "@mui/material";
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 import AddIcon from '@mui/icons-material/Add';
 import FormikTextField from "./FormikTextField";
 import { useFormik } from "formik"
 import { useState, useEffect } from 'react'
-import { date, object, string, number } from 'yup'
+import { object, string, number } from 'yup'
 import axiosAPI from "../axiosAPI";
 import axios from 'axios'
 import getData from '../getDate'
@@ -13,8 +13,9 @@ import { useNavigate } from "react-router-dom";
 
 const schemeForNFT = object().shape({
     description: string().min(1).max(50).required(),
-    price: number().min(1).required(),
+    price: string().min(1).required(),
 })
+
 
 export default function CreateCard(){
 
@@ -59,6 +60,7 @@ export default function CreateCard(){
 
         setSubmitting(false)
         setOpen(false)
+        console.log('all is done')
     }
 
     const formik = useFormik({
@@ -66,14 +68,13 @@ export default function CreateCard(){
             user: `${data?.dataEmail}`,
             description: `${data?.description}`,
             price: `${data?.price}`,
-            dataCreate: `${data?.getDate}`
+            dataCreate: `${data?.getData}`,
+            likesCount: 0,
         },
         onsubmit: handleSubmit,
         validationSchema: schemeForNFT,
         validateOnMount: true,
     })
-
-console.log(data)
 
     const [imagePreview, setImagePreview] = useState('')
 
@@ -116,12 +117,13 @@ console.log(data)
             <Dialog
             open={open}
             onClose={handleClose}
-            maxWidth='800px'
+            maxWidth='1500px'
+            scroll='body'
             PaperProps={{
                 sx:{
                 background:"#1f1f1f",
                 borderRadius: '20px',
-                widht:'90%',
+                // widht:'90%',
                 ml: '5%',}
             }}
             sx={{backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
@@ -143,13 +145,12 @@ console.log(data)
 
                     <DialogContent>
                         <form onSubmit={formik.handleSubmit}>
-                        <Box  sx={{display: 'flex', width: '100%'}}>
+                        <Box  sx={{display: {xs:'block', lg: 'flex'}, width: '100%'}}>
 
                             <Box sx={{
-                                width: '500px', 
+                                width: {lg:'60%', xs: '100%'},
                                 height: '500px',
                                 background: '#424242',
-                                border: '2px dashed white',
                                 borderRadius: '14px'
                             }}>
                                 <TextField
@@ -159,11 +160,10 @@ console.log(data)
                                 sx={{width: '500px',
                                 height:'100px',
                                 background: '#424242',
-                                border: '2px dashed white',
                                 borderRadius: '14px'}}
                                 onChange={e => setImage(e.target.files[0]) }
                                 placeholder='Select or drag a file'/>
-                                <Box
+                                <CardMedia
                                 src={imagePreview}
                                 alt='Your nft'
                                 sx={{width: '400px',
@@ -172,7 +172,11 @@ console.log(data)
                             </Box>
 
 
-                            <Box sx={{ width: '300px', ml:4, height: '500px'}}>
+                            <Box 
+                            sx={{ 
+                                width: {xs: '100%', lg:'40%', }, 
+                                ml:{xs: 1, lg:4, }, 
+                                height: '100%'}}>
                                 <Typography
                                 classes={{root: 'headingFont'}}
                                 id={sessionStorage.email}
@@ -181,7 +185,8 @@ console.log(data)
                                 fontSize: '24px',
                                 width: '100%',
                                 lineHeight: '35px',
-                                height: '56px',}}>{sessionStorage.email}</Typography>
+                                height: '56px',
+                                mt: {xs: 2, lg:0}}}>{sessionStorage.email}</Typography>
 
                                 <FormikTextField 
                                 id='price'
@@ -191,9 +196,8 @@ console.log(data)
                                 placeholder='Set a price' 
                                 inputProps={{color:'white',}}
                                 sx={{width: '100%',
-                                mt: 4,
+                                mt:{lg: 4, xs: 1},
                                 height: '56px',
-                                border: '2px dashed white',
                                 borderRadius: '14px', 
                                 background: '#424242'}}/>
 
@@ -205,9 +209,8 @@ console.log(data)
                                 placeholder='Write a description' 
                                 inputProps={{color:'white'}}
                                 sx={{width: '100%',
-                                mt: 4,
+                                mt:{lg: 4, xs: 1},
                                 height: '56px',
-                                border: '2px dashed white',
                                 borderRadius: '14px', 
                                 background: '#424242'}}/>
 
@@ -217,7 +220,7 @@ console.log(data)
                                 color: 'white',
                                 borderRadius: '12px',
                                 width: '100%',
-                                mt: 26,
+                                mt: {lg:26, xs: 2},
                                 height: '56px',}}
                                 >
                                     <Box sx={{display: 'flex'}}
