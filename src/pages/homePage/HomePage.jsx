@@ -29,13 +29,13 @@ export default function HomePage(){
     }, [])
 
     return(
-        <Context.Provider value={!!response}>
+        <Context.Provider value={response}>
             <BoxBG  className='BoxBG'>
                 <AppBarHeader/>
                 <Box sx={{mt: '95px', width: '100%'}}>
                 <CreateCard/>
                 <p>{!!isLoading && <CircularProgress color="inherit" />}</p>
-                <Box>{!!!isLoading && <CardsShow/>}</Box>
+                <Box>{!!response && <CardsShow/>}</Box>
                 {/* <CircleTheme/> */}
                 </Box>
             </BoxBG>

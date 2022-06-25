@@ -20,7 +20,7 @@ export default function CardShow(){
     return(
         <> 
         {/* // <Box sx={{width: '100%'}}> */}
-            {response?.map((el, i) => {
+            {response.map((el, i) => {
                 return(
                     <Card
                     sx={{
