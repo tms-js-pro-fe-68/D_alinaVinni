@@ -6,9 +6,9 @@ import { useHomePageContext } from '../../pages/homePage/HomePage';
 
 export default function SearchField(){
 
-    const responseHomePage = useHomePageContext()
+    const answer = useHomePageContext()
 
-    const allUsers = responseHomePage
+    const allUsers = answer
     
     return(
         <Box sx={{display: 'flex', 
@@ -20,12 +20,11 @@ export default function SearchField(){
                 <SearchIcon disabled sx={{color: 'white',}}/>
             </Button>
 
-            <Autocomplete
+            {/* <Autocomplete
             id='usersSearch'
             sx={{width: '88%'}}
-            // clearIcon
             options={allUsers} 
-            renderInput={(params) => 
+            renderInput={(params) =>  */}
                 <TextField
                 id='search'
                 placeholder='Search...' 
@@ -33,9 +32,9 @@ export default function SearchField(){
                 sx:{color:'white',}}}
                 sx={{width: '100%',
                 borderRadius: '8px',}}
-                {...params}
+                // {...params}
                 />
-            }/>
+            {/* }/> */}
         </Box>
     )
 }

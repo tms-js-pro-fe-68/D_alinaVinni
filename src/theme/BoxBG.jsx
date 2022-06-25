@@ -4,9 +4,8 @@ export default function BoxBG(props){
     return(
             <div  className='BoxBG' style={{
                 background: 'black',
-                height: '100vh',
+                height: '100%',
                 width: '100vw',
-                display: 'flex',
                 flexDirection: 'column',
                 marginTop: '0px',
                 zIndex: '-20',

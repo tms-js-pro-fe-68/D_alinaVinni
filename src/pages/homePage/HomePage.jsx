@@ -1,10 +1,11 @@
 import BoxBG from '../../theme/BoxBG'
 import CircleTheme from '../../theme/CirclesLight'
 import AppBarHeader from '../../components/AppBarHeader.jsx'
-import CardShow from '../../components/CardShow.jsx'
-import { Container } from '@mui/material'
+import CardsShow from '../../components/CardsShow.jsx'
+import { Box, CircularProgress  } from '@mui/material'
 import CreateCard from '../../components/CreateCard.jsx'
-import { useContext, createContext } from 'react'
+import { useContext, createContext, useState, useEffect } from 'react'
+import axiosAPI from '../../axiosAPI'
 
 
 const Context = createContext()
@@ -12,21 +13,31 @@ const Context = createContext()
 export const useHomePageContext = () => useContext(Context)
 
 
-export default function HomePage(){
 
-    const responseHomePage = [22, 'place for fetch, which the get all nfts and hand over them to children throw useHomePageContext', 1, 2, 3]
+export default function HomePage(){  
+    const [isLoading, setIsLoading] = useState(false)
+    const [response, setResponse] = useState(false)
 
-    // console.log(responseHomePage)
+    useEffect(() => {
+        const getAllPosts = async() => {
+            setIsLoading(true)
+            const answer = await axiosAPI.get('/nfts')
+            setIsLoading(false)
+            setResponse(answer.data)
+        }
+        getAllPosts()
+    }, [])
 
     return(
-        <Context.Provider value={responseHomePage}>
+        <Context.Provider value={!!response}>
             <BoxBG  className='BoxBG'>
                 <AppBarHeader/>
-                <Container sx={{mt: '95px', display: 'flex'}}>
-                <CardShow/>
+                <Box sx={{mt: '95px', width: '100%'}}>
                 <CreateCard/>
+                <p>{!!isLoading && <CircularProgress color="inherit" />}</p>
+                <Box>{!!!isLoading && <CardsShow/>}</Box>
                 {/* <CircleTheme/> */}
-                </Container>
+                </Box>
             </BoxBG>
         </Context.Provider>
     )

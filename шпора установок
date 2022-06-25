@@ -63,3 +63,10 @@ Sites -> Add new site -> Import an existing project ->
 npm i @emotion/styled @emotion/react
 
 yarn add @fontsource/urbanist
+
+
+Заметки: 
+1. Диалоги заимстованные из mui в:
+    DialogDeleteOrEdit || CreateCard 
+    можно было бы заменить в общую форму и только в 
+    DialogDeleteOrEdit запретить изменение картинки

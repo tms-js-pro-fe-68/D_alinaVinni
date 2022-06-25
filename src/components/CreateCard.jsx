@@ -98,7 +98,6 @@ export default function CreateCard(){
             border: '3px solid white',
             borderRadius: '14px',
             width: '207px',
-            mt: 38,
             height: '56px',}} onClick={() => {handleClickOpen()}}>
                 <Box sx={{display: 'flex'}}>
                 <AddIcon sx={{color: 'white', fontSize: '25px',}}/>
@@ -163,7 +162,7 @@ export default function CreateCard(){
                                 borderRadius: '14px'}}
                                 onChange={e => setImage(e.target.files[0]) }
                                 placeholder='Select or drag a file'/>
-                                <CardMedia
+                                <Box
                                 src={imagePreview}
                                 alt='Your nft'
                                 sx={{width: '400px',
