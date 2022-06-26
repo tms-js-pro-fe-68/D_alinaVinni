@@ -45,6 +45,7 @@ export default function CreateCard(){
     const data = {}
 
     const handleSubmit = async( values, {setSubmitting}) => {
+        console.log(11)
         await axiosAPI.post('/nfts', {...values}) 
 
         const resourse = '/nft'
@@ -74,6 +75,7 @@ export default function CreateCard(){
         onsubmit: handleSubmit,
         validationSchema: schemeForNFT,
         validateOnMount: true,
+        // enableReinitialize: true,
     })
 
     const [imagePreview, setImagePreview] = useState('')
@@ -214,6 +216,7 @@ export default function CreateCard(){
                                 background: '#424242'}}/>
 
                                 <Button
+                                type='submit'
                                 disabled={!formik.isValid && !formik.isSubmiting}
                                 sx={{background: "linear-gradient(207.67deg, #FDAE8F 3.43%, #FD1C68 104.7%)",
                                 color: 'white',
@@ -222,8 +225,7 @@ export default function CreateCard(){
                                 mt: {lg:26, xs: 2},
                                 height: '56px',}}
                                 >
-                                    <Box sx={{display: 'flex'}}
-                                    type='submit'>
+                                    <Box sx={{display: 'flex'}}>
                                     <AddIcon sx={{color: 'white', fontSize: '25px',}}/>
                                     <Typography
                                     classes={{root: 'secondFont'}}

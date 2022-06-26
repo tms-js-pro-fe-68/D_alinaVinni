@@ -1,44 +1,65 @@
-import { Avatar, Card, Button, CardHeader, CardMedia, IconButton, Typography, Box, } from "@mui/material";
+import { Avatar, Card, Button, CardHeader, CardMedia, IconButton, Typography, Box, Skeleton,  Tooltip, } from "@mui/material";
 import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import TokenOutlinedIcon from '@mui/icons-material/TokenOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
-import { useState } from 'react'
-import DialogDeleteOrEdit from "./DialogDeleteOrEdir";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useState, createContext, useContext } from 'react'
 import { useHomePageContext } from "../pages/homePage/HomePage";
+import DialogDeleteOrEdit from "./DialogDeleteOrEdir";
+
+
 
 export default function CardShow(){
     const [colorLike, setColorLike] = useState('white')
+    const [openEditor, setOpenEditor] = useState(false)
 
     function likeButton() {
         return( colorLike == 'white' ? setColorLike('red') : setColorLike('white') )
     }
 
+    const handleClickOpen = () => {
+        setOpenEditor(true)
+        console.log(`handle click open`)}
+
     const response = useHomePageContext()
-     console.log(response, 'cardshow')
+
     return(
-        <> 
-        {/* // <Box sx={{width: '100%'}}> */}
-            {response.map((el, i) => {
+        <Box
+        sx={{width: '100%',}}> 
+            {response.map((el) => {
                 return(
                     <Card
+                    id={`${el?.id}`}
                     sx={{
                         width:'370px',
                         height: '606px',
                         background: 'rgba(255, 255, 255, 0.2)',
                         borderRadius: '24px',
+                        justifyContent:'center',
+                        mt: 4
                     }}>
+                        {!!el?.imageURL && 
                         <CardMedia
                         component='img'
                         height='322'
-                        image={`${el[i]?.imageURL}`}
-                        alt={`${el[i]?.description}`}
+                        image={`${el?.imageURL}`}
+                        alt={`${el?.description}`}
                         sx={{background:'#F2B4B0',
                         width: '322px',
                         height:'322px',
                         m:3,
-                        borderRadius: '24px'}}/>
+                        borderRadius: '24px'}}/>}
+                        <p>{!el?.imageURL && 
+                        <Skeleton
+                        variant="rectangular"
+                        animation="wave"
+                        sx={{background:'rgba(242,180,176, 0.5)',
+                        width: '322px',
+                        height:'322px',
+                        m:3,
+                        borderRadius: '24px'}}/>}</p>
             
                         <Box sx={{display: 'flex', mt:'-15px',}}>
                             <CardHeader
@@ -59,7 +80,7 @@ export default function CardShow(){
                                 fontSize: '24px',
                                 ml:'-5px',
                                 }}>
-                                    {`${el[i]?.user}`}
+                                    {`${el?.user}`}
                                 </Typography>}
                                 subheader={<Typography 
                                 classes={{root: 'secondFont'}}
@@ -70,8 +91,31 @@ export default function CardShow(){
                                 Time...
                                 </Typography>}>
                             </CardHeader>
+                            <IconButton 
+                            id={el?.id}
+                            sx={{width: '15%'}}  
+                            onClick={(e) => {
+                                handleClickOpen()
+                            }}>
+                                <Tooltip 
+                                id={el?.id}
+                                title='Manage' 
+                                sx={{width: '100%'}}
+                                >
+                                    <MoreVertIcon 
+                                    id={el?.id}
+                                    sx={{color:'white', width:'100%', height: '100%'}}/>
+                                </Tooltip>
+                            </IconButton>
                             
-                        <DialogDeleteOrEdit/>
+                            <DialogDeleteOrEdit 
+                            id={`${el?.id}`}
+                            open={openEditor}
+                            onClose={() => {
+                            const warning = confirm(`If you close the Edit card, you will lose your progress. \nAre you sure you want to close the Edit card?`)
+                            if(warning == true){
+                                setOpenEditor(false);
+                            } }}/>
                         
                         </Box>
             
@@ -93,7 +137,7 @@ export default function CardShow(){
                                 textAlign:'center',
                                 fontSize: '16px',
                                 mt: '-2px'}}>
-                                    {`${el[i]?.likesCount}`}
+                                    {`${el?.likesCount}`}
                                 </Typography>
                             </Box>
                             
@@ -112,7 +156,7 @@ export default function CardShow(){
                                 textAlign:'center',
                                 fontSize: '16px',
                                 mt: '-2px'}}>
-                                    {`${el[i]?.price}`}
+                                    {`${el?.price}`}
                                     <span style={{color: 'gray', marginLeft:'2px'}}>DASH</span>
                                 </Typography>
                             </Box>
@@ -159,7 +203,6 @@ export default function CardShow(){
                     </Card>
                 )
             })}
-        {/* // </Box>  */}
-        </>
+        </Box>
     )
 }

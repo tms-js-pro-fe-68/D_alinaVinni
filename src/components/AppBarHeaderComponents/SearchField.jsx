@@ -6,9 +6,9 @@ import { useHomePageContext } from '../../pages/homePage/HomePage';
 
 export default function SearchField(){
 
-    const answer = useHomePageContext()
+    // const answer = useHomePageContext()
 
-    const allUsers = answer
+    // const allUsers = answer
     
     return(
         <Box sx={{display: 'flex', 

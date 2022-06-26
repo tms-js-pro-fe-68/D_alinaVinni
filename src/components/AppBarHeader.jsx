@@ -16,10 +16,17 @@ export default function AppBarHeader(){
   const ListMenu = [ 'Home', 'Explore', 'Pages', 'Contact us']
 
     return(
-      <Container maxWidth='xl' disableGutters>
+        <Box container 
+        component='header' 
+        display='flex' 
+        sx={{position: 'fixed', 
+        width:'100%', 
+        background:'rgba(0,0,0, 0.8)', 
+        height: "95px", 
+        zIndex:50}}>
         <Grid container justifyContent="center" alignItems="center" columns={14}>
           <Grid item xs={14} >
-            <Box component='header' display='flex' sx={{position: 'fixed', width:'100%', background:'rgba(0,0,0, 0.8)', height: "95px"}}>
+            
               
               <Box xs={14} sx={{mt:2.9, width: '100%'}} display='flex'>
                 <ButtonMenu/>
@@ -99,9 +106,9 @@ export default function AppBarHeader(){
                 </Grid>
 
               </Box>
-            </Box>
+           
           </Grid>
         </Grid>
-      </Container>
+        </Box>
     )
 }

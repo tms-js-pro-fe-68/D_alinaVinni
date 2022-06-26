@@ -46,8 +46,7 @@ export default function LoginPage(){
     return(
         <BoxBG  className='BoxBG'  
         style={{
-            height: '100vh',
-            width: '100vw',
+            height: '100% !important',
         }}>
             <Button 
             onClick={() => {navigate('/', {replace: true});}}>Return to the HomePage</Button>

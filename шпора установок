@@ -70,3 +70,5 @@ yarn add @fontsource/urbanist
     DialogDeleteOrEdit || CreateCard 
     можно было бы заменить в общую форму и только в 
     DialogDeleteOrEdit запретить изменение картинки
+
+2. DialogDeleteOrEdit - риск получить много рендеров

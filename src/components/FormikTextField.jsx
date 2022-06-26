@@ -9,7 +9,7 @@ export default function FormikTextField( {name, type, formik, ...otherProps} ){
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         value={formik.values[name]}
-        error={formik.touched[name] && !!formik.touched[name]}
+        error={formik.touched[name] && !!formik.errors[name]}
         {...otherProps}/>
     )
 }
