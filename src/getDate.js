@@ -33,4 +33,4 @@ const getCreationDate = () => {
         day = (day < 10) ? `0${day}` : day
     return(`${month} ${day}, ${year}`)}
 
-export default getCreationDate()
+export default getCreationDate

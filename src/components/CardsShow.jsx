@@ -28,10 +28,11 @@ export default function CardShow(){
     return(
         <Box
         sx={{width: '100%',}}> 
-            {response.map((el) => {
+            {response.map((el, i) => {
                 return(
                     <Card
                     id={`${el?.id}`}
+                    key={i}
                     sx={{
                         width:'370px',
                         height: '606px',

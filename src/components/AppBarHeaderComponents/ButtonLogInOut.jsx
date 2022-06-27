@@ -6,8 +6,7 @@ export default function ButtonLogInOut(){
   const navigate = useNavigate()
 
   const handleLogOutIn = () => { 
-    sessionStorage.token = ''
-    sessionStorage.email = ''
+    sessionStorage.clear()
     navigate('../login', { replace: true })
   }
 

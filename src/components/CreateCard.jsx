@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import { object, string, number } from 'yup'
 import axiosAPI from "../axiosAPI";
 import axios from 'axios'
-import getData from '../getDate'
+import getCreationDate from '../getDate'
 import { useNavigate } from "react-router-dom";
 
 const schemeForNFT = object().shape({
@@ -18,17 +18,19 @@ const schemeForNFT = object().shape({
 
 
 export default function CreateCard(){
+    const navigate = useNavigate()
 
     const [open, setOpen] = useState(false);
 
-    const navigate = useNavigate()
+    // const [dataEmail, setDataEmail] = useState(sessionStorage.email)
 
-    const dataEmail = sessionStorage.email
+    const createData = getCreationDate()
+
 
     const handleClickOpen = () => {
-        if(dataEmail == null){
+        if(sessionStorage.email == null){
             navigate('../login', { replace: true })
-        }else if(dataEmail !== null){
+        }else if(sessionStorage.email !== null){
             setOpen(true);
         }
     };
@@ -45,7 +47,6 @@ export default function CreateCard(){
     const data = {}
 
     const handleSubmit = async( values, {setSubmitting}) => {
-        console.log(11)
         await axiosAPI.post('/nfts', {...values}) 
 
         const resourse = '/nft'
@@ -66,16 +67,14 @@ export default function CreateCard(){
 
     const formik = useFormik({
         initialValues:{
-            user: `${data?.dataEmail}`,
+            user: sessionStorage.email,
             description: `${data?.description}`,
             price: `${data?.price}`,
-            dataCreate: `${data?.getData}`,
             likesCount: 0,
         },
-        onsubmit: handleSubmit,
+        onSubmit: handleSubmit,
         validationSchema: schemeForNFT,
         validateOnMount: true,
-        // enableReinitialize: true,
     })
 
     const [imagePreview, setImagePreview] = useState('')
@@ -182,6 +181,7 @@ export default function CreateCard(){
                                 classes={{root: 'headingFont'}}
                                 id={sessionStorage.email}
                                 name={sessionStorage.email}
+                                value={sessionStorage.email}
                                 sx={{color:'white', 
                                 fontSize: '24px',
                                 width: '100%',
