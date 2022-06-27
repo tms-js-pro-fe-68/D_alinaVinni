@@ -6,9 +6,19 @@ import { useHomePageContext } from '../../pages/homePage/HomePage';
 
 export default function SearchField(){
 
-    // const answer = useHomePageContext()
+    const response = useHomePageContext()
+    
 
-    // const allUsers = answer
+    let allUsers = []
+    useEffect(() => {
+        if(response !== false || allUsers == []){
+        response.map((el, i) => {
+            allUsers.push({label: `${el?.user}`, key:`${i}`})
+        })}
+        // console.log(response)
+        // console.log(allUsers)
+    }, [allUsers])
+
     
     return(
         <Box sx={{display: 'flex', 
@@ -20,11 +30,11 @@ export default function SearchField(){
                 <SearchIcon disabled sx={{color: 'white',}}/>
             </Button>
 
-            {/* <Autocomplete
+            <Autocomplete
             id='usersSearch'
             sx={{width: '88%'}}
             options={allUsers} 
-            renderInput={(params) =>  */}
+            renderInput={(params) => 
                 <TextField
                 id='search'
                 placeholder='Search...' 
@@ -32,9 +42,9 @@ export default function SearchField(){
                 sx:{color:'white',}}}
                 sx={{width: '100%',
                 borderRadius: '8px',}}
-                // {...params}
+                {...params}
                 />
-            {/* }/> */}
+            }/>
         </Box>
     )
 }

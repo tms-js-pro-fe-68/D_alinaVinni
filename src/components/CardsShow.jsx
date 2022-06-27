@@ -8,37 +8,53 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState, createContext, useContext } from 'react'
 import { useHomePageContext } from "../pages/homePage/HomePage";
 import DialogDeleteOrEdit from "./DialogDeleteOrEdir";
+import CircleTheme from "../theme/CirclesLight";
 
 
 
 export default function CardShow(){
+    const response = useHomePageContext()
     const [colorLike, setColorLike] = useState('white')
     const [openEditor, setOpenEditor] = useState(false)
 
-    function likeButton() {
-        return( colorLike == 'white' ? setColorLike('red') : setColorLike('white') )
+    function likeButton (targetID, like) {
+       if(colorLike == 'white') {
+            setColorLike('red')
+            like++
+        //    return(axiosAPI.post(`/nfts/${targetID}`, {likesCount: `${like}`})) 
+        }else{
+            setColorLike('white') 
+            like--
+            // return(axiosAPI.post(`/nfts/${targetID}`, {likesCount: `${like}`})) 
+        } 
+    // console.log(targetID)
+    }
+
+    function daTe(data){
+        return (`${data.slice(0, 4)} ${data.slice(5, 7)} ${data.slice(8, 10)}`)
     }
 
     const handleClickOpen = () => {
         setOpenEditor(true)
-        console.log(`handle click open`)}
-
-    const response = useHomePageContext()
+        console.log(`handle click open`)
+    }
 
     return(
         <Box
-        sx={{width: '100%',}}> 
+        sx={{width: '100%', mt:3}}> 
             {response.map((el, i) => {
                 return(
+                    <Box container>
                     <Card
                     id={`${el?.id}`}
                     key={i}
                     sx={{
                         width:'370px',
-                        height: '606px',
+                        height: '680px',
                         background: 'rgba(255, 255, 255, 0.2)',
                         borderRadius: '24px',
-                        justifyContent:'center',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
                         mt: 4
                     }}>
                         {!!el?.imageURL && 
@@ -89,7 +105,7 @@ export default function CardShow(){
                                 fontSize: '20px',
                                 ml:'-5px',
                                 }}>
-                                Time...
+                                {daTe(el?.createdAt)}
                                 </Typography>}>
                             </CardHeader>
                             <IconButton 
@@ -112,21 +128,26 @@ export default function CardShow(){
                             <DialogDeleteOrEdit 
                             id={`${el?.id}`}
                             open={openEditor}
-                            onClose={() => {
-                            const warning = confirm(`If you close the Edit card, you will lose your progress. \nAre you sure you want to close the Edit card?`)
-                            if(warning == true){
-                                setOpenEditor(false);
-                            } }}/>
+                            onClose={() => {setOpenEditor(false)}}/>
                         
                         </Box>
-            
+                        <Typography
+                        classes={{root: 'secondFont'}}
+                        sx={{color:'white', 
+                        width: '100%',
+                        fontSize: '16px',
+                        ml:3}}
+                        >{`${el?.description}`}</Typography>
                         <Box sx={{display: 'flex', justifyItems: 'center'}}>
                             <Box sx={{width: '50%'}}>
-                                <IconButton onClick={() => likeButton()} 
+                                <IconButton
+                                id={el?.id}
+                                onClick={(e) => likeButton(e.target.id, el?.likesCount)} 
                                 sx={{justifyContent: 'center', 
                                 width: '20%', 
                                 ml:'40%'}}>
                                     <FavoriteBorderOutlinedIcon
+                                    id={el?.id}
                                     sx={{ color: colorLike, 
                                     width: '100%',
                                     height: '100%'}}/>
@@ -202,6 +223,8 @@ export default function CardShow(){
                             </Box>
                         </Box>
                     </Card>
+                    {/* <CircleTheme/> */}
+                    </Box>
                 )
             })}
         </Box>

@@ -9,6 +9,7 @@ import { Box,
     Container,
     Grid   } from '@mui/material'
 import axiosAPI from "../../axiosAPI"
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const schemaSignIn = object().shape({
     email: string().email().required(),
@@ -26,7 +27,7 @@ export default function LoginPage(){
         sessionStorage.token = data.token;
         sessionStorage.email = data.email;
 
-        // axiosAPI.setup(data.token)
+        axiosAPI.setup(data.token)
 
         navigate('/', {replace: true});
 
@@ -45,11 +46,11 @@ export default function LoginPage(){
 
     return(
         <BoxBG  className='BoxBG'  
-        style={{
-            height: '100% !important',
+        sx={{
+            height: '100%',
         }}>
             <Button 
-            onClick={() => {navigate('/', {replace: true});}}>Return to the HomePage</Button>
+            onClick={() => {navigate('/', {replace: true});}}><ArrowBackIcon sx={{color: 'white', fontSize: '30px',}}/></Button>
              <Container maxWidth='xl' sx={{mt: 6,}}>
                 <Grid container sx={{justifyContent:'center'}}>
                     <Grid item xs={12} md={8}>

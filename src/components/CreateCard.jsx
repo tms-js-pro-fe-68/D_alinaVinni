@@ -1,6 +1,8 @@
-import { Dialog, DialogContent, DialogTitle, Box, Button, Typography, TextField, containerClasses, CardMedia, } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, 
+    Box, Button, Typography, 
+    TextField, LinearProgress, createTheme, 
+    ThemeProvider} from "@mui/material";
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
 import AddIcon from '@mui/icons-material/Add';
 import FormikTextField from "./FormikTextField";
 import { useFormik } from "formik"
@@ -8,7 +10,6 @@ import { useState, useEffect } from 'react'
 import { object, string, number } from 'yup'
 import axiosAPI from "../axiosAPI";
 import axios from 'axios'
-import getCreationDate from '../getDate'
 import { useNavigate } from "react-router-dom";
 
 const schemeForNFT = object().shape({
@@ -16,16 +17,20 @@ const schemeForNFT = object().shape({
     price: string().min(1).required(),
 })
 
+const theme = createTheme({
+    palette: {
+        progress: {
+            main: '#FD1C68'
+        }
+    }
+})
+
 
 export default function CreateCard(){
     const navigate = useNavigate()
 
     const [open, setOpen] = useState(false);
-
-    // const [dataEmail, setDataEmail] = useState(sessionStorage.email)
-
-    const createData = getCreationDate()
-
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleClickOpen = () => {
         if(sessionStorage.email == null){
@@ -39,6 +44,7 @@ export default function CreateCard(){
     const warning = confirm(`If you close the creation card, you will lose your progress. \nAre you sure you want to close the creation card?`)
         if(warning == true){
             setOpen(false);
+            setImagePreview('')
         } 
     };
 
@@ -47,6 +53,7 @@ export default function CreateCard(){
     const data = {}
 
     const handleSubmit = async( values, {setSubmitting}) => {
+        setIsLoading(true)
         await axiosAPI.post('/nfts', {...values}) 
 
         const resourse = '/nft'
@@ -61,6 +68,7 @@ export default function CreateCard(){
         await axiosAPI.put(`/nfts/${data.id}`, {imageURL})
 
         setSubmitting(false)
+        setIsLoading(false)
         setOpen(false)
         console.log('all is done')
     }
@@ -83,7 +91,7 @@ export default function CreateCard(){
         const reader = new FileReader()
         reader.onload = e => setImagePreview(e.target.result)
 
-        if(image){
+        if(!!image){
             reader.readAsDataURL(image)
         }
 
@@ -94,12 +102,14 @@ export default function CreateCard(){
     return(
         <>
             <Button sx={{
-            heigth: '72px', 
+            height: '56px', 
             color: 'white',
             border: '3px solid white',
             borderRadius: '14px',
-            width: '207px',
-            height: '56px',}} onClick={() => {handleClickOpen()}}>
+            width: '40%',
+            ml: '30%',
+            mt:5
+            }} onClick={() => {handleClickOpen()}}>
                 <Box sx={{display: 'flex'}}>
                 <AddIcon sx={{color: 'white', fontSize: '25px',}}/>
                 <Typography
@@ -113,7 +123,7 @@ export default function CreateCard(){
                 </Box>
             </Button>
 
-       
+            <ThemeProvider theme={theme}>
             <Dialog
             open={open}
             onClose={handleClose}
@@ -123,7 +133,7 @@ export default function CreateCard(){
                 sx:{
                 background:"#1f1f1f",
                 borderRadius: '20px',
-                // widht:'90%',
+                widht:'90%',
                 ml: '5%',}
             }}
             sx={{backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
@@ -157,19 +167,27 @@ export default function CreateCard(){
                                 id='image'
                                 type='file'
                                 name='image'
-                                sx={{width: '500px',
-                                height:'100px',
+                                sx={{width: '100%',
+                                height:'5%',
                                 background: '#424242',
                                 borderRadius: '14px'}}
                                 onChange={e => setImage(e.target.files[0]) }
                                 placeholder='Select or drag a file'/>
-                                <Box
+                                <Box sx={{width: '100%', 
+                                height:'95%'}}>
+                                <img
+                                className='forImages'
                                 src={imagePreview}
-                                alt='Your nft'
-                                sx={{width: '400px',
-                                heigth: '400px',
-                                justifyContent: 'center'}}/>
+                                alt='Your nft'/>
+                                </Box>
                             </Box>
+                            {!!isLoading && 
+                            <>
+                                <Box sx={{ width: '100%' }}>
+                                <LinearProgress color="progress" />
+                                </Box>
+                                <Typography sx={{color:'white'}}>{`If the post tries to send too long. \n Plese log out and again log in.`}</Typography>
+                            </>}
 
 
                             <Box 
@@ -226,7 +244,7 @@ export default function CreateCard(){
                                 height: '56px',}}
                                 >
                                     <Box sx={{display: 'flex'}}>
-                                    <AddIcon sx={{color: 'white', fontSize: '25px',}}/>
+                                    {!!isLoading && <AddIcon sx={{color: 'white', fontSize: '25px',}}/>}
                                     <Typography
                                     classes={{root: 'secondFont'}}
                                     sx={{color:'white', 
@@ -242,6 +260,8 @@ export default function CreateCard(){
                         </form>
                     </DialogContent>
             </Dialog>
+            </ThemeProvider>
+            {/* <CircleTheme/> */}
         </>
     )
 }

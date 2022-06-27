@@ -5,7 +5,7 @@ const axiosAPI = axios.create({
 })
 
 axiosAPI.setup = key => {
-    api.defaults.headers.Authorization = `Token ${key}`
-}
+    axiosAPI.defaults.headers.Authorization = `Token ${key}`
+  }
 
 export default axiosAPI
