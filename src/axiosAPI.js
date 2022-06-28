@@ -6,6 +6,8 @@ const axiosAPI = axios.create({
 
 axiosAPI.setup = key => {
     axiosAPI.defaults.headers.Authorization = `Token ${key}`
+    // axiosAPI.defaults.headers.Accept = "application/json"
+    // axiosAPI.defaults.headers['Content-Type'] = "application/json"
   }
 
 export default axiosAPI

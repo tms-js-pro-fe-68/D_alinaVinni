@@ -5,19 +5,21 @@ import { useHomePageContext } from '../../pages/homePage/HomePage';
 
 
 export default function SearchField(){
+    const [inputUser, setInputUser] = useState('')
 
     const response = useHomePageContext()
     
-
-    let allUsers = []
     useEffect(() => {
-        if(response !== false || allUsers == []){
-        response.map((el, i) => {
-            allUsers.push({label: `${el?.user}`, key:`${i}`})
-        })}
-        // console.log(response)
-        // console.log(allUsers)
-    }, [allUsers])
+        if(response !== false){
+        const filterUsers = () =>{
+            response.map((el, i) => {
+                if(el?.user == inputUser){
+                    console.log(el, i)
+                }
+            })}
+            filterUsers()
+        }
+    }, [inputUser])
 
     
     return(
@@ -30,21 +32,14 @@ export default function SearchField(){
                 <SearchIcon disabled sx={{color: 'white',}}/>
             </Button>
 
-            <Autocomplete
-            id='usersSearch'
-            sx={{width: '88%'}}
-            options={allUsers} 
-            renderInput={(params) => 
-                <TextField
-                id='search'
-                placeholder='Search...' 
-                inputProps={{
-                sx:{color:'white',}}}
-                sx={{width: '100%',
-                borderRadius: '8px',}}
-                {...params}
-                />
-            }/>
+            <TextField
+            id='search'
+            placeholder='Search...' 
+            inputProps={{
+            sx:{color:'white',}}}
+            sx={{width: '100%',
+            borderRadius: '8px',}}
+            onChange={(e) => {setInputUser(e.target.value)}}/>
         </Box>
     )
 }

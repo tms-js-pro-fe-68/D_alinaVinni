@@ -1,13 +1,12 @@
 import { Dialog, DialogContent, DialogTitle, 
     Box, Button, Typography, 
-    TextField, LinearProgress, createTheme, 
-    ThemeProvider} from "@mui/material";
+    TextField, LinearProgress, } from "@mui/material";
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import FormikTextField from "./FormikTextField";
 import { useFormik } from "formik"
 import { useState, useEffect } from 'react'
-import { object, string, number } from 'yup'
+import { object, string, } from 'yup'
 import axiosAPI from "../axiosAPI";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
@@ -17,13 +16,6 @@ const schemeForNFT = object().shape({
     price: string().min(1).required(),
 })
 
-const theme = createTheme({
-    palette: {
-        progress: {
-            main: '#FD1C68'
-        }
-    }
-})
 
 
 export default function CreateCard(){
@@ -45,6 +37,7 @@ export default function CreateCard(){
         if(warning == true){
             setOpen(false);
             setImagePreview('')
+            setIsLoading(false)
         } 
     };
 
@@ -101,6 +94,7 @@ export default function CreateCard(){
 
     return(
         <>
+        <Box sx={{width:'100%'}}>
             <Button sx={{
             height: '56px', 
             color: 'white',
@@ -122,8 +116,8 @@ export default function CreateCard(){
                 </Typography>
                 </Box>
             </Button>
+        </Box>
 
-            <ThemeProvider theme={theme}>
             <Dialog
             open={open}
             onClose={handleClose}
@@ -159,7 +153,7 @@ export default function CreateCard(){
 
                             <Box sx={{
                                 width: {lg:'60%', xs: '100%'},
-                                height: '500px',
+                                height: '450px',
                                 background: '#424242',
                                 borderRadius: '14px'
                             }}>
@@ -168,32 +162,34 @@ export default function CreateCard(){
                                 type='file'
                                 name='image'
                                 sx={{width: '100%',
-                                height:'5%',
+                                minHeight:'5%',
                                 background: '#424242',
                                 borderRadius: '14px'}}
                                 onChange={e => setImage(e.target.files[0]) }
                                 placeholder='Select or drag a file'/>
                                 <Box sx={{width: '100%', 
-                                height:'95%'}}>
+                                height:'90%'}}>
                                 <img
                                 className='forImages'
                                 src={imagePreview}
                                 alt='Your nft'/>
+                                
+                                {!!isLoading && 
+                                <>
+                                    <Box sx={{ width: '100%' }}>
+                                    <LinearProgress color="progress" />
+                                    </Box>
+                                    <p style={{color:'white', marginTop: '5px'}}>{'If the post tries to send too long(waiting time: 2min). Plese LOG OUT and again LOG IN.'}</p>
+                                </>}
                                 </Box>
                             </Box>
-                            {!!isLoading && 
-                            <>
-                                <Box sx={{ width: '100%' }}>
-                                <LinearProgress color="progress" />
-                                </Box>
-                                <Typography sx={{color:'white'}}>{`If the post tries to send too long. \n Plese log out and again log in.`}</Typography>
-                            </>}
 
 
                             <Box 
                             sx={{ 
                                 width: {xs: '100%', lg:'40%', }, 
                                 ml:{xs: 1, lg:4, }, 
+                                mt: {xs:7, lg: 0},
                                 height: '100%'}}>
                                 <Typography
                                 classes={{root: 'headingFont'}}
@@ -244,7 +240,7 @@ export default function CreateCard(){
                                 height: '56px',}}
                                 >
                                     <Box sx={{display: 'flex'}}>
-                                    {!!isLoading && <AddIcon sx={{color: 'white', fontSize: '25px',}}/>}
+                                    <AddIcon sx={{color: 'white', fontSize: '25px',}}/>
                                     <Typography
                                     classes={{root: 'secondFont'}}
                                     sx={{color:'white', 
@@ -260,7 +256,6 @@ export default function CreateCard(){
                         </form>
                     </DialogContent>
             </Dialog>
-            </ThemeProvider>
             {/* <CircleTheme/> */}
         </>
     )

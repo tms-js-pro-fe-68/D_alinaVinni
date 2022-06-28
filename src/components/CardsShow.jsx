@@ -152,7 +152,8 @@ export default function CardShow(){
                                     width: '100%',
                                     height: '100%'}}/>
                                 </IconButton>
-                                <Typography 
+                                <Typography
+                                id={el?.id} 
                                 classes={{root: 'secondFont'}}
                                 sx={{color:'white', 
                                 width: '100%', 
@@ -223,7 +224,6 @@ export default function CardShow(){
                             </Box>
                         </Box>
                     </Card>
-                    {/* <CircleTheme/> */}
                     </Box>
                 )
             })}
