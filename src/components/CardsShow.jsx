@@ -42,8 +42,6 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
         }
     }
 
-    // if(props.value !== false){
-    //     const response = props.value
         return(
             <Box container>
             <Card

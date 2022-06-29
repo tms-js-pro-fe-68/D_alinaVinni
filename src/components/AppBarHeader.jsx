@@ -53,7 +53,6 @@ export default function AppBarHeader(){
                   borderRadius: '8px',
                   width: '90%',
                   height: '56px',
-                  // display: {xs: 'none', sm: 'block'},
                   mr: '10%',
                   justifyContent: 'center'}}>
                     <SearchField/>

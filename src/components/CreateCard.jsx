@@ -20,7 +20,6 @@ const schemeForNFT = object().shape({
 
 
 export default function CreateCard(){
-    // const queryClient = useQueryClient()
     const navigate = useNavigate()
 
     const [open, setOpen] = useState(false);
@@ -45,7 +44,6 @@ export default function CreateCard(){
 
     const [image, setImage] = useState(null)
  
-    // const data = {}
 
     const handleSubmit = async( values, {setSubmitting}) => {
         console.log(image)
@@ -67,7 +65,6 @@ export default function CreateCard(){
 
         setSubmitting(false)
         setIsLoading(false)
-        // queryClient.invalidateQueries('nfts')
         setOpen(false)
         console.log('all is done')
     }
@@ -77,7 +74,6 @@ export default function CreateCard(){
             name: '01',
             description: ``,
             price: ``,
-            // imageURL: '',
             likesCount: 0,
         },
         onSubmit: handleSubmit,
@@ -214,7 +210,6 @@ export default function CreateCard(){
                                 id='price'
                                 name='price'
                                 formik={formik}
-                                // value={data?.price}
                                 placeholder='Set a price' 
                                 inputProps={{color:'white',}}
                                 sx={{width: '100%',
@@ -227,7 +222,6 @@ export default function CreateCard(){
                                 id='description'
                                 name='description'
                                 formik={formik}
-                                // value={data?.description}
                                 placeholder='Write a description' 
                                 inputProps={{color:'white'}}
                                 sx={{width: '100%',
