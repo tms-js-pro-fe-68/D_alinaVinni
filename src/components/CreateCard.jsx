@@ -11,6 +11,7 @@ import axiosAPI from "../axiosAPI";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import { useHomePageContext } from "../pages/homePage/HomePage";
 
 const schemeForNFT = object().shape({
     description: string().min(1).max(20).required(),
@@ -21,6 +22,8 @@ const schemeForNFT = object().shape({
 
 export default function CreateCard(){
     const navigate = useNavigate()
+
+    const { getAllPosts } = useHomePageContext()
 
     const [open, setOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
@@ -46,14 +49,12 @@ export default function CreateCard(){
  
 
     const handleSubmit = async( values, {setSubmitting}) => {
-        console.log(image)
         setIsLoading(true)
         const {data} = await axiosAPI.post('/nfts', {...values}) 
 
         const resource = 'nft'
         const formData = new FormData()
         formData.append( 'image', image )
-        console.log(formData)
         
         const { data: imageUrl } = await axios.post(
             'https://server.kemalkalandarov.lol/api/images', 
@@ -66,6 +67,7 @@ export default function CreateCard(){
         setSubmitting(false)
         setIsLoading(false)
         setOpen(false)
+        getAllPosts()
         console.log('all is done')
     }
 

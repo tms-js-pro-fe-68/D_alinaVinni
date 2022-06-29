@@ -84,16 +84,17 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                         </p>
                     </Box>
                     
-                    <Box sx={{width: {xs: '100%', md: '40%'}}}>
+                    <Box sx={{width: {xs: '100%', md: '40%'},
+                    ml: {xs:0, md:'-25px', lg:0}}}>
                     <Box sx={{display: 'flex', 
                     mt:{xs:'-15px', md: 3}, 
-                    width:'100%'}}>
+                    width:'100%',}}>
                         <CardHeader
-                        sx={{ width:'100%'}}
+                        sx={{ width:'80%'}}
                         avatar={
                             <Avatar sx={{background: '#F2B4B0',
-                            width: {xs:'56px', md:'130px'},
-                            height:{xs:'56px', md:'130px'}}}>
+                            width: {xs:'56px', xl:'130px'},
+                            height:{xs:'56px', xl:'130px'}}}>
                                 <FaceOutlinedIcon 
                                 sx={{color: 'black', 
                                 width: '100%',
@@ -103,8 +104,8 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                             <Typography 
                             classes={{root: 'headingFont'}}
                             sx={{color:'white', 
-                            fontSize:{xs: '24px', md:'40px'},
-                            ml:{xs:'-5px', md:'10px'},
+                            fontSize:{xs: '24px', lg:'30px'},
+                            ml:{xs:'-5px', lg:'10px'},
                             }}>
                                 {`${user}`}
                             </Typography>}
@@ -112,8 +113,8 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                                 <Typography 
                                 classes={{root: 'secondFont'}}
                                 sx={{color:'white', 
-                                fontSize: {xs:'20px', md:'30px'},
-                                ml:{xs:'-5px', md:'10px'},
+                                fontSize: {xs:'20px', lg:'25px'},
+                                ml:{xs:'-5px', lg:'10px'},
                                 }}>
                                     {daTe(createdAt)}
                                 </Typography>}>
@@ -145,18 +146,18 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                     classes={{root: 'secondFont'}}
                     sx={{color:'white', 
                     width: '100%',
-                    fontSize: {xs:'16px', md:'30px'},
+                    fontSize: {xs:'18px', ld:'30px'},
                     ml:3,
-                    mt:{xs:0, md:4}}}
+                    mt:{xs:0, lg:4}}}
                     >{`${description}`}</Typography>
-                    <Box sx={{display: 'flex', justifyItems: 'center', m:3, mt:{xs:3, md:'210px'}}}>
+                    <Box sx={{display: 'flex', justifyItems: 'center',  mt:{xs:3, lg:'210px'}}}>
                         <Box sx={{width: '50%'}}>
                             <IconButton
                             id={id}
                             onClick={(e) => likeButton(e.target.id, likesCount)} 
                             sx={{justifyContent: 'center', 
-                            width: '20%', 
-                            ml:'40%'}}>
+                            width: '30%', 
+                            ml:'35%'}}>
                                 <FavoriteBorderOutlinedIcon
                                 id={id}
                                 sx={{ color: colorLike, 
@@ -178,8 +179,8 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                         <Box sx={{width: '50%'}}>
                             <IconButton
                             sx={{justifyContent: 'center', 
-                            width: '20%', 
-                            ml:'40%'}}>
+                            width: '30%', 
+                            ml:'35%'}}>
                                 <TokenOutlinedIcon
                                 sx={{color:'white', width:'100%', height: '100%'}}/>
                             </IconButton>
@@ -196,8 +197,10 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                         </Box>
                     </Box>
         
-                    <Box sx={{width: '100%', display: 'flex', mt: 5}}>
-                        <Box sx={{width:'50%'}}> 
+                    <Box sx={{width: '100%', 
+                    display: {xs:'flex', md:'block', lg:'flex'}, 
+                    mt:{lg: '35px', md: '290px', xs:'5px'}}}>
+                        <Box sx={{width:{xs:'50%', md:'90%', lg:'50%'}}}> 
                             <Button 
                             sx={{background: "linear-gradient(207.67deg, #3C485D 3.43%, #3C485D 104.7%)",
                                 color: 'white',
@@ -215,14 +218,14 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                                 </Box>
                             </Button>
                         </Box>
-                        <Box sx={{width:'50%'}}> 
+                        <Box sx={{width:{xs:'50%', md:'90%', lg:'50%'}, mt:{xs:0, md: '25px', lg:0}}}> 
                             <Button 
                             sx={{background: "linear-gradient(207.67deg, #FDAE8F 3.43%, #FD1C68 104.7%)",
                                 color: 'white',
                                 borderRadius: '12px',
                                 width: '85%',
                                 height: '56px',
-                                ml:'5%'}}>
+                                ml:{xs:'5%', md:'10%', lg: '5%'}}}>
                                 <Box sx={{display:'flex'}}>
                                 <AutoGraphIcon sx={{color: 'white', width: '25px'}}/>
                                 <Typography 
