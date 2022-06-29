@@ -10,15 +10,17 @@ import { object, string, } from 'yup'
 import axiosAPI from "../axiosAPI";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "react-query";
 
 const schemeForNFT = object().shape({
-    description: string().min(1).max(50).required(),
+    description: string().min(1).max(20).required(),
     price: string().min(1).required(),
 })
 
 
 
 export default function CreateCard(){
+    // const queryClient = useQueryClient()
     const navigate = useNavigate()
 
     const [open, setOpen] = useState(false);
@@ -43,34 +45,39 @@ export default function CreateCard(){
 
     const [image, setImage] = useState(null)
  
-    const data = {}
+    // const data = {}
 
     const handleSubmit = async( values, {setSubmitting}) => {
+        console.log(image)
         setIsLoading(true)
-        await axiosAPI.post('/nfts', {...values}) 
+        const {data} = await axiosAPI.post('/nfts', {...values}) 
 
-        const resourse = '/nft'
+        const resource = 'nft'
         const formData = new FormData()
         formData.append( 'image', image )
+        console.log(formData)
         
-        const { data: imageURL } = await axios.post(
+        const { data: imageUrl } = await axios.post(
             'https://server.kemalkalandarov.lol/api/images', 
             formData,
-            { params: {resourse, id:data.id}})
+            { params: {resource, id:data.id} },
+        )
         
-        await axiosAPI.put(`/nfts/${data.id}`, {imageURL})
+        await axiosAPI.put(`/nfts/${data.id}`, {imageUrl})
 
         setSubmitting(false)
         setIsLoading(false)
+        // queryClient.invalidateQueries('nfts')
         setOpen(false)
         console.log('all is done')
     }
 
     const formik = useFormik({
         initialValues:{
-            user: sessionStorage.email,
-            description: `${data?.description}`,
-            price: `${data?.price}`,
+            name: '01',
+            description: ``,
+            price: ``,
+            // imageURL: '',
             likesCount: 0,
         },
         onSubmit: handleSubmit,
@@ -127,7 +134,7 @@ export default function CreateCard(){
                 sx:{
                 background:"#1f1f1f",
                 borderRadius: '20px',
-                widht:'90%',
+                width:'90%',
                 ml: '5%',}
             }}
             sx={{backgroundColor: 'rgba(255, 255, 255, 0.2)', }}>
@@ -179,7 +186,7 @@ export default function CreateCard(){
                                     <Box sx={{ width: '100%' }}>
                                     <LinearProgress color="progress" />
                                     </Box>
-                                    <p style={{color:'white', marginTop: '5px'}}>{'If the post tries to send too long(waiting time: 2min). Plese LOG OUT and again LOG IN.'}</p>
+                                    <p style={{color:'white', marginTop: '5px'}}>{'If the post tries to send too long(waiting time: 2min). Please LOG OUT and again LOG IN.'}</p>
                                 </>}
                                 </Box>
                             </Box>
@@ -207,7 +214,7 @@ export default function CreateCard(){
                                 id='price'
                                 name='price'
                                 formik={formik}
-                                value={data?.price}
+                                // value={data?.price}
                                 placeholder='Set a price' 
                                 inputProps={{color:'white',}}
                                 sx={{width: '100%',
@@ -220,7 +227,7 @@ export default function CreateCard(){
                                 id='description'
                                 name='description'
                                 formik={formik}
-                                value={data?.description}
+                                // value={data?.description}
                                 placeholder='Write a description' 
                                 inputProps={{color:'white'}}
                                 sx={{width: '100%',
@@ -231,7 +238,7 @@ export default function CreateCard(){
 
                                 <Button
                                 type='submit'
-                                disabled={!formik.isValid && !formik.isSubmiting}
+                                disabled={!formik.isValid && !formik.isSubmitting}
                                 sx={{background: "linear-gradient(207.67deg, #FDAE8F 3.43%, #FD1C68 104.7%)",
                                 color: 'white',
                                 borderRadius: '12px',

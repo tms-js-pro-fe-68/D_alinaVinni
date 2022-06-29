@@ -17,8 +17,8 @@ export default function Introduce(){
             sx={{background: `center no-repeat url('./keqing-genshin-impact.gif')`,
             zIndex: '-9',
             height: '300px',
-            width: {xs:'350px', md:'500px'},
-            marginLeft:{md:'100px', xs:'60px'},
+            width: {xs:'350px', md:'500px', sm:'450px'},
+            ml:{md:'100px', xs:'30px', sm:'40px'},
             borderRadius: '30px'
             }}/>
             <Box
@@ -26,19 +26,19 @@ export default function Introduce(){
             sx={{background: `center no-repeat url('./b4564cc739c391a0f182c2d70bfef416.gif')`,
             zIndex: '-7',
             height: '220px',
-            width: {xs:'310px', md:'450px'},
-            marginTop:{xs:'330px', md: '230px'},
-            ml:{xs:'-320px', md:'-130px'},
+            width: {xs:'310px', md:'450px', sm:'390px'},
+            mt:{xs:'330px', md: '230px', sm:'320px'},
+            ml:{xs:'-250px', md:'-130px', sm:'-250px'},
             borderRadius: '30px'
             }}/>
             <Box
             className='forGifsIntro animation_light'
             sx={{background: `center no-repeat url('./animesher.com_nge-neon-genesis-evangelion-evangelion-1329234.gif')`,
             zIndex: '-8',
-            height: '270px',
-            width: {xs: '350px', md:'480px'},
-            mt: {xs:'130px', md:'15px'},
-            ml:{xs:'-170px', md:'-240px'},
+            height: {xs:'200px', sm:'270px'},
+            width: {xs: '230px', md:'480px', sm:'300px'},
+            mt: {xs:'170px', md:'15px', sm:'80px'},
+            ml:{xs:'-160px', md:'-240px', sm:'-200px'},
             borderRadius: '30px'
             }}/>
         </Box>

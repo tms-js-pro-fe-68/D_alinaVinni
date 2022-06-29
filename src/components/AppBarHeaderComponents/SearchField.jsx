@@ -2,24 +2,23 @@ import { Autocomplete, Box, Button, TextField} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { useState, useEffect  } from 'react';
 import { useHomePageContext } from '../../pages/homePage/HomePage';
+import CardShow from '../CardsShow';
 
 
 export default function SearchField(){
-    const [inputUser, setInputUser] = useState('')
-
-    const response = useHomePageContext()
+    const {searchUser, setSearchUser, response} = useHomePageContext()
     
     useEffect(() => {
         if(response !== false){
         const filterUsers = () =>{
             response.map((el, i) => {
-                if(el?.user == inputUser){
-                    console.log(el, i)
+                if(el?.user == searchUser){
+                    console.log(el?.id)
                 }
             })}
             filterUsers()
         }
-    }, [inputUser])
+    }, [searchUser])
 
     
     return(
@@ -35,11 +34,12 @@ export default function SearchField(){
             <TextField
             id='search'
             placeholder='Search...' 
+            value={searchUser}
             inputProps={{
             sx:{color:'white',}}}
             sx={{width: '100%',
             borderRadius: '8px',}}
-            onChange={(e) => {setInputUser(e.target.value)}}/>
+            onChange={(e) => {setSearchUser(e.target.value)}}/>
         </Box>
     )
 }

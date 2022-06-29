@@ -21,7 +21,9 @@ const theme = createTheme({
     }
 })
 
-export default function HomePage(){  
+export default function HomePage(){
+    const [searchUser, setSearchUser] = useState('')  
+
     const [isLoading, setIsLoading] = useState(false)
     const [response, setResponse] = useState(false)
 
@@ -36,26 +38,35 @@ export default function HomePage(){
     }, [])
 
     return(
-        <Context.Provider value={response}>
+        <Context.Provider value={{searchUser, setSearchUser, response}}>
             <ThemeProvider theme={theme}>
             <BoxBG  className='BoxBG'>
                 <AppBarHeader/>
                 <Box container sx={{mt: {xs:'100px',md:'200px'}, width: '100%',
-            marginLeft:'auto',
-            marginRight:'auto',}}>
+                marginLeft:'auto',
+                marginRight:'auto',}}>
                     <Introduce/>
                     <CreateCard/>
+
                 <div style={{textAlign:'center'}}>{!!isLoading && 
-                <Box sx={{height:'100vh'}}>
-                    <CircularProgress color='progress' 
-                    sx={{ml: 'auto', 
-                    mr: 'auto', 
-                    width: '70px !important', 
-                    height: '70px !important',
-                    mt: '20%'}}/>
-                </Box>}</div>
-                <Box>{!!response && <CardsShow/>}</Box>
-                {/* <CircleTheme/> */}
+                    <Box sx={{height:'100vh'}}>
+                        <CircularProgress color='progress' 
+                        sx={{ml: 'auto', 
+                        mr: 'auto', 
+                        width: '70px !important', 
+                        height: '70px !important',
+                        mt: '20%'}}/>
+                    </Box>}
+                </div>
+
+                    <Box>{!!response && 
+                        [...response].reverse().map((el) => 
+                            {return(
+                                <CardsShow key={el.id} {...el}/>
+                                )}
+                            )
+                        }
+                    </Box>
                 </Box>
             </BoxBG>
             </ThemeProvider>
