@@ -31,23 +31,21 @@ import ButtonLogInOut from './ButtonLogInOut';
         <Grid item xs={1}>
               <Button 
               sx={{
-                height: '56px',
+                height: '60px',
                 width: '100%',
                 justifyContent: 'center',
                 color: '#FD1C68',
                 display: 'inline',
-                // background: 'black',
                 borderRadius: '15px',
                 ml:1}}
                 onClick={() => handleClickOpen()}>
 
                 <Box sx={{
                 background: `center no-repeat url('./Logo.png')`,
-                height: '50px',
-                // width: '100%',
+                height: '56px',
                 justifyContent: 'center',
                 textAlign: 'center',
-                // mt: '-5px'
+                mt: '-3px'
                 }}/>
               </Button>
               </Grid>
@@ -56,6 +54,7 @@ import ButtonLogInOut from './ButtonLogInOut';
                 open={open}
                 onClose={handleClose}
                 fullWidth
+                scroll='body'
                 PaperProps={{
                   sx:{
                     background:"#1f1f1f",

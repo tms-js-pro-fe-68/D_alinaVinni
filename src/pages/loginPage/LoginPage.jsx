@@ -1,5 +1,4 @@
 import BoxBG from "../../theme/BoxBG"
-import CircleTheme from '../../theme/CirclesLight'
 import { object, string } from 'yup'
 import { useNavigate } from "react-router-dom"
 import { useFormik } from 'formik'
@@ -9,6 +8,8 @@ import { Box,
     Button, 
     Container,
     Grid   } from '@mui/material'
+import axiosAPI from "../../axiosAPI"
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const schemaSignIn = object().shape({
     email: string().email().required(),
@@ -18,28 +19,19 @@ const schemaSignIn = object().shape({
 export default function LoginPage(){
     const navigate = useNavigate();
 
-    const handleSubmit = async (values, { setSubmiting }) => {
+    const handleSubmit = async (values, { setSubmitting }) => {
         const {email, password} = values;
 
-        const response = await fetch('https://tms-js-pro-back-end.herokuapp.com/api/users/signin', {
-            method:'POST',
-            headers: {
-                Accept: 'application/json',
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password
-            }),
-        })
+        const { data } = await axiosAPI.post(`/users/signin`, { email, password })
 
-        const data = await response.json()
-        
         sessionStorage.token = data.token;
         sessionStorage.email = data.email;
+
+        axiosAPI.setup(data.token)
+
         navigate('/', {replace: true});
 
-        setSubmiting(false)
+        setSubmitting(false)
     }
 
     const formik = useFormik({
@@ -54,14 +46,16 @@ export default function LoginPage(){
 
     return(
         <BoxBG  className='BoxBG'  
-        style={{
-            height: '100vh',
-            width: '100vw',
+        sx={{
+            height: '100%',
         }}>
+            <Button 
+            onClick={() => {navigate('/', {replace: true});}}><ArrowBackIcon sx={{color: 'white', fontSize: '30px',}}/></Button>
              <Container maxWidth='xl' sx={{mt: 6,}}>
                 <Grid container sx={{justifyContent:'center'}}>
                     <Grid item xs={12} md={8}>
-                    <Box component='form'
+                    <form onSubmit={formik.handleSubmit}>
+                    <Box 
                     container
                     item
                     spacing={2}
@@ -105,7 +99,8 @@ export default function LoginPage(){
                             formik.touched.password && !!formik.errors.password && formik.errors.password
                         }/>
 
-                        <Button type='submit' 
+                        <Button 
+                        type='submit' 
                         disabled={!formik.isValid && !formik.isSubmiting}
                         sx={{
                             width: '90%', 
@@ -122,6 +117,7 @@ export default function LoginPage(){
                             </Typography>
                         </Button>
                     </Box>
+                    </form>
                     </Grid>
                 </Grid>
              </Container>

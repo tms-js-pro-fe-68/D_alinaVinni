@@ -1,17 +1,18 @@
+import { Box } from "@mui/material";
 
-export default function BoxBG(props){
+export default function BoxBG({sx, ...otherProps}){
 
     return(
-            <div  className='BoxBG' style={{
+            <Box  className='BoxBG' 
+            sx={{
                 background: 'black',
-                height: '100vh',
                 width: '100vw',
-                display: 'flex',
                 flexDirection: 'column',
                 marginTop: '0px',
                 zIndex: '-20',
                 position: 'absolute',
-            }}>{props.children}</div> 
+                ...sx,
+            }}{...otherProps}/>
 
     )
 }

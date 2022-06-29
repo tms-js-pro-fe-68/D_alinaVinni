@@ -42,24 +42,24 @@ button {
 }
 
 .filter-blur-light{
-  filter: blur(25rem);
+  filter: blur(12rem);
 }
 
 .animation_light{
   animation-name: light;
-  animation-duration: 5s;
+  animation-duration: 8s;
   animation-iteration-count: infinite;
 }
 
 @keyframes light{
   from{
-    opacity: 0%;
+    opacity: 5%;
   }
   50%{
       opacity:100%;
   }
   to{
-    opacity: 0%;
+    opacity: 5%;
   }
 }
 
