@@ -6,19 +6,19 @@ import CardShow from '../CardsShow';
 
 
 export default function SearchField(){
-    const {searchUser, setSearchUser, response} = useHomePageContext()
+    const {searchUser, setSearchUser, response, getAllPosts} = useHomePageContext()
     
-    useEffect(() => {
-        if(response !== false){
-        const filterUsers = () =>{
-            response.map((el, i) => {
-                if(el?.user == searchUser){
-                    console.log(el?.id)
-                }
-            })}
-            filterUsers()
-        }
-    }, [searchUser])
+    // useEffect(() => {
+    //     if(response !== false){
+    //     const filterUsers = () =>{
+    //         response.map((el, i) => {
+    //             if(el?.user == searchUser){
+    //                 console.log(el?.id)
+    //             }
+    //         })}
+    //         filterUsers()
+    //     }
+    // }, [searchUser])
 
     
     return(
@@ -34,12 +34,13 @@ export default function SearchField(){
             <TextField
             id='search'
             placeholder='Search...' 
-            value={searchUser}
+            // value={searchUser}
             inputProps={{
             sx:{color:'white',}}}
             sx={{width: '100%',
             borderRadius: '8px',}}
-            onChange={(e) => {setSearchUser(e.target.value)}}/>
+            onChange={(e) => {getAllPosts(e.target.value)}}/>
         </Box>
     )
 }
+//setSearchUser(e.target.value)

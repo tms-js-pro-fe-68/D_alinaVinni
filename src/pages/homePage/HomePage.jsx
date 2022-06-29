@@ -26,11 +26,22 @@ export default function HomePage(){
     const [isLoading, setIsLoading] = useState(false)
     const [response, setResponse] = useState(false)
 
-    const getAllPosts = async() => {
+    const getAllPosts = async(search) => {
         setIsLoading(true)
         const answer = await axiosAPI.get('/nfts')
-        setIsLoading(false)
-        setResponse(answer.data)
+            if(search == undefined){
+                setIsLoading(false)
+                setResponse(answer.data)
+            }else{
+                let userPostsArray = []
+                answer.data.map((el) =>{
+                    if(el.user == search){
+                        userPostsArray.push(el)
+                    }
+                })
+                setResponse(userPostsArray.flat())
+                setIsLoading(false)
+            }
     }
 
     useEffect(() => {
