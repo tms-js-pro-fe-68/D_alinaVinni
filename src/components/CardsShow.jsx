@@ -1,4 +1,4 @@
-import { Avatar, Card, Button, CardHeader, CardMedia, IconButton, Typography, Box, Skeleton,  Tooltip, } from "@mui/material";
+import { Avatar, Card, Button, CardHeader, IconButton, Typography, Box, Skeleton,  Tooltip, } from "@mui/material";
 import FaceOutlinedIcon from '@mui/icons-material/FaceOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import TokenOutlinedIcon from '@mui/icons-material/TokenOutlined';
@@ -9,6 +9,7 @@ import { useState } from 'react'
 import DialogDeleteOrEdit from "./DialogDeleteOrEdit";
 import axiosAPI from "../axiosAPI";
 import { useNavigate } from "react-router-dom";
+import { useHomePageContext } from '../pages/homePage/HomePage';
 
 
 
@@ -18,15 +19,20 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
     const [colorLike, setColorLike] = useState('white')
     const [openEditor, setOpenEditor] = useState(false)
 
-    function likeButton (targetID, like) {
+    const { getAllPosts } = useHomePageContext()
+
+
+    const likeButton = async(targetID, like) => {
        if(colorLike == 'white') {
             setColorLike('red')
             like++
-           return(axiosAPI.put(`/nfts/${targetID}`, {likesCount: `${like}`})) 
+            await axiosAPI.put(`/nfts/${targetID}`, {likesCount: `${like}`})
+            getAllPosts()
         }else{
             setColorLike('white') 
             like--
-            return(axiosAPI.put(`/nfts/${targetID}`, {likesCount: `${like}`})) 
+            await axiosAPI.put(`/nfts/${targetID}`, {likesCount: `${like}`}) 
+            getAllPosts()
         } 
     }
 
@@ -146,7 +152,7 @@ export default function CardShow({id, imageUrl, likesCount, price, createdAt, de
                     classes={{root: 'secondFont'}}
                     sx={{color:'white', 
                     width: '100%',
-                    fontSize: {xs:'18px', ld:'30px'},
+                    fontSize: {xs:'23px', ld:'30px'},
                     ml:3,
                     mt:{xs:0, lg:4}}}
                     >{`${description}`}</Typography>
