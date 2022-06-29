@@ -49,14 +49,12 @@ export default function CreateCard(){
  
 
     const handleSubmit = async( values, {setSubmitting}) => {
-        console.log(image)
         setIsLoading(true)
         const {data} = await axiosAPI.post('/nfts', {...values}) 
 
         const resource = 'nft'
         const formData = new FormData()
         formData.append( 'image', image )
-        console.log(formData)
         
         const { data: imageUrl } = await axios.post(
             'https://server.kemalkalandarov.lol/api/images', 

@@ -1,26 +1,11 @@
-import { Autocomplete, Box, Button, TextField} from '@mui/material'
+import { Box, Button, TextField} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-import { useState, useEffect  } from 'react';
 import { useHomePageContext } from '../../pages/homePage/HomePage';
-import CardShow from '../CardsShow';
 
 
 export default function SearchField(){
     const {searchUser, setSearchUser, response, getAllPosts} = useHomePageContext()
-    
-    // useEffect(() => {
-    //     if(response !== false){
-    //     const filterUsers = () =>{
-    //         response.map((el, i) => {
-    //             if(el?.user == searchUser){
-    //                 console.log(el?.id)
-    //             }
-    //         })}
-    //         filterUsers()
-    //     }
-    // }, [searchUser])
-
-    
+ 
     return(
         <Box sx={{display: 'flex', 
         width: '100%', 
@@ -34,7 +19,6 @@ export default function SearchField(){
             <TextField
             id='search'
             placeholder='Search...' 
-            // value={searchUser}
             inputProps={{
             sx:{color:'white',}}}
             sx={{width: '100%',
@@ -43,4 +27,3 @@ export default function SearchField(){
         </Box>
     )
 }
-//setSearchUser(e.target.value)

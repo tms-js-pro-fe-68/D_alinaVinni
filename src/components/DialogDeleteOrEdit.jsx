@@ -42,7 +42,6 @@ export default function DialogDeleteOrEdit({id, onClose,...otherProps}){
     })
     
     const deletePost = async() => {
-        console.log(11)
         const warning = confirm('Do you really want to delete this post?')
         if(warning == true){
             await axiosAPI.delete(`/nfts/${id}`)
