@@ -14,6 +14,8 @@ export default function DialogDeleteOrEdit({id, onClose,...otherProps}){
 
     const [post, setPost] = useState(false)
 
+    const { getAllPosts } = useHomePageContext()
+
     useEffect(() => {
         const getPost = async() =>{
             const answerPost = await axiosAPI.get(`/nfts/${id}`)
@@ -26,7 +28,7 @@ export default function DialogDeleteOrEdit({id, onClose,...otherProps}){
         await axiosAPI.put(`/nfts/${id}`, {...values})
         setSubmitting(false)
         onClose()
-        console.log('handleSubmit')
+        getAllPosts()
     }
 
     const formik = useFormik({
@@ -45,6 +47,7 @@ export default function DialogDeleteOrEdit({id, onClose,...otherProps}){
         if(warning == true){
             await axiosAPI.delete(`/nfts/${id}`)
             onClose()
+            getAllPosts()
         }
     }
 

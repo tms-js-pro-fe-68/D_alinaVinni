@@ -26,18 +26,19 @@ export default function HomePage(){
     const [isLoading, setIsLoading] = useState(false)
     const [response, setResponse] = useState(false)
 
+    const getAllPosts = async() => {
+        setIsLoading(true)
+        const answer = await axiosAPI.get('/nfts')
+        setIsLoading(false)
+        setResponse(answer.data)
+    }
+
     useEffect(() => {
-        const getAllPosts = async() => {
-            setIsLoading(true)
-            const answer = await axiosAPI.get('/nfts')
-            setIsLoading(false)
-            setResponse(answer.data)
-        }
         getAllPosts()
     }, [])
 
     return(
-        <Context.Provider value={{searchUser, setSearchUser, response}}>
+        <Context.Provider value={{searchUser, setSearchUser, response, getAllPosts}}>
             <ThemeProvider theme={theme}>
             <BoxBG  className='BoxBG'>
                 <AppBarHeader/>
