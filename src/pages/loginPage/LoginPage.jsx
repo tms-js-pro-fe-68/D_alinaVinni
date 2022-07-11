@@ -20,8 +20,7 @@ export default function LoginPage(){
     const navigate = useNavigate();
 
     const handleSubmit = async (values, { setSubmitting }) => {
-        const {email, password} = values;
-
+        const {email, password} = values; 
         const { data } = await axiosAPI.post(`/users/signin`, { email, password })
 
         sessionStorage.token = data.token;
@@ -65,7 +64,14 @@ export default function LoginPage(){
                     flexDirection: 'column'}}>
 
                         <Typography variant='h3' className='headingFont'
-                        sx={{textAlign: 'center', m:'5%', pt:'10px', color: 'black'}}>Please sign in</Typography>
+                        sx={{textAlign: 'center', m:'5%', pt:'10px', color: 'black'}}>
+                            Please sign in
+                        </Typography>
+                        <Typography sx={{width: '90%', 
+                        ml:'5%',
+                        color: '#808080'}}>
+                            Developer's login: alinav@mail.com, password: 15
+                        </Typography>
 
                         <TextField
                         label='Email Address'
@@ -75,8 +81,7 @@ export default function LoginPage(){
                         sx={{width: '90%', 
                         justifyContent:'center', 
                         borderRadius: '15px', 
-                        ml:'5%',
-                        mt:'3%'}}
+                        ml:'5%',}}
                         onBlur={formik.handleBlur}
                         value={formik.values.email} 
                         onChange={formik.handleChange}
@@ -106,8 +111,7 @@ export default function LoginPage(){
                             width: '90%', 
                             justifyContent:'center', 
                             borderRadius: '15px', 
-                            ml:'5%',  
-                            mb:'5%',
+                            m:'5%',
                             height:'60px',
                             background: 'linear-gradient(207.67deg, #FDAE8F 3.43%, #FD1C68 104.7%)',
                         }}>
